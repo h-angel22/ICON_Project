@@ -116,6 +116,7 @@ config/icon="res://Icon.png"
 DefaultLoad="*res://src/default_load.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 AudioManager="*res://src/audio_manager.gd"
+Roomstofile="*res://ICON_src/roomstofile.gd"
 
 [display]
 
@@ -218,6 +219,10 @@ fullscreen={
 2d_physics/layer_1="All"
 2d_physics/layer_2="Land"
 2d_physics/layer_3="PortalBracker"
+
+[mono]
+
+project/assembly_name="Dimensions Break"
 
 [physics]
 
