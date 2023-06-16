@@ -1,0 +1,62 @@
+from LevelConverter import *
+from room import *
+from cspProblem import Variable, CSP, Constraint
+from cspSLS import *
+from costraints import *
+
+dim = 7
+num_archs = 9
+
+rooms_to_use = load_file("project/ICON_src/rooms.txt", dim)
+
+#variabili
+vars = []
+
+arch_domain = []
+arch_domain.append((None, None, None, None))
+couples = []
+
+for i in range(0,dim):
+    for j in range(0,dim):
+        if i != j:
+            temp = (i,j)
+            couples.append(temp)
+
+for c in couples:
+    arch_domain.append((c[0], c[1], None, None))
+    arch_domain.append((None, None, c[0], c[1]))
+
+n = num_archs #9#int((dim*(dim-1))/2)
+for i in range(0,n):
+    vars.append(Variable("A"+str(i), arch_domain))
+
+print(vars)
+
+constraints = []
+
+constraints.append( Constraint(vars, not_equals, "non possono esserci 2 archi uguali") )
+constraints.append( Constraint(vars, not_mirrors, "non possono esserci archi con valori specchiati") ) # tutti gli archi
+constraints.append( Constraint(vars, not_samecolumn, "non si può ripetere un unumero in una stessa posizione dell'arco")) #tutti gli archi
+constraints.append( Constraint(vars, not_opposite, "non possono esserci archi orizzontali e verticali con gli stessi valori") ) # tutti gli archi
+constraints.append( Constraint(vars, all_used(rooms_to_use), "verifica che usi tutte le stanze") )
+constraints.append( Constraint(vars, is_valid(rooms_to_use), "deve risultare un grafo collegato") )
+constraints.append( Constraint(vars, can_connect(rooms_to_use), "non ci può essere il collegamento se una stanza ha un ostacolo") )
+
+
+
+"""
+#Vincoli
+"4 stanze disposte come vertici di un quadrato devono essere collegate"
+"la prima e l'ultitima stanza non devono collegarsi"
+"""
+
+
+csp = CSP("stanze", vars, constraints)
+#dfs_solve1(csp,vars)
+solution = any_conflict_solver(csp)
+
+archs_to_rooms(rooms_to_use, solution)
+
+save_file("project/ICON_src/out_rooms.txt", rooms_to_use)
+
+#print(solution)

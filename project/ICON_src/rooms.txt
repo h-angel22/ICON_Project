@@ -7,4 +7,3 @@ NewRoom6.tscn -1 -1 -1 -1
 NewRoom7.tscn -1 -1 -2 -1
 NewRoom8.tscn -1 -1 -1 -1
 NewRoom9.tscn -1 -2 -1 -1
-
