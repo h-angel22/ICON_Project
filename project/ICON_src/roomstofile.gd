@@ -20,6 +20,7 @@ func _ready():
 		i = room.instance()
 		data += r + " " + str(i.left_room) + " "+ str(i.right_room) + " " + str(i.top_room) + " " + str(i.bottom_room) + "\n"
 	
+	data[-1] = ""
 	print(data)
 	var file = File.new()
 	file.open(out_path, File.WRITE)
