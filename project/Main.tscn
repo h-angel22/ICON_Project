@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/GameManager.gd" type="Script" id=1]
 [ext_resource path="res://scenes/prefabs/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,21 @@
 [ext_resource path="res://scenes/hud/HealthBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/hud/ManaBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/prefabs/Assistant.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sprites/loading/imm3.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/loading/imm2.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/loading/imm5.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/loading/imm6.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/loading/imm4.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/loading/imm1.png" type="Texture" id=12]
+[ext_resource path="res://src/Loading.gd" type="Script" id=13]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 12 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fadein"
@@ -145,11 +160,37 @@ current = true
 slot_number = 1
 
 [node name="ColorRect" type="ColorRect" parent="HUD"]
-visible = false
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0, 0, 0, 1 )
+
+[node name="Loading" type="Control" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+script = ExtResource( 13 )
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Loading"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -540.0
+margin_right = 960.0
+margin_bottom = 540.0
+color = Color( 0.352941, 0.352941, 1, 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="HUD/Loading"]
+frames = SubResource( 6 )
+frame = 5
+playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fadein = SubResource( 1 )
@@ -158,4 +199,6 @@ anims/RESET = SubResource( 3 )
 anims/fast_Fadein = SubResource( 4 )
 anims/fast_Fadeout = SubResource( 5 )
 
+[connection signal="loaded" from="." to="HUD/Loading" method="_on_loaded"]
+[connection signal="animation_finished" from="HUD/Loading/AnimatedSprite" to="HUD/Loading" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

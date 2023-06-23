@@ -24,12 +24,18 @@ var current_level: int
 
 var saved_state: GameState = GameState.new()
 
+signal loaded
+
 func _init():
-	levels.append("res://levels/LvTutorial.tres")
-	levels.append("res://levels/Lv1SciFi.tres")
-	levels.append("res://levels/LvBonus1.tres")
+	pass
+	#levels.append("res://levels/LvTutorial.tres")
+	#levels.append("res://levels/Lv1SciFi.tres")
+	#levels.append("res://levels/LvBonus1.tres")
 
 func _ready():
+	#TODO genera livello
+	emit_signal("loaded")
+	levels.append("res://levels/LvBonus1.tres")
 	player = player_scene.instance()
 	player.connect("is_dead", self, "_respawn")
 	assistant = assistant_scene.instance()
