@@ -6,7 +6,6 @@ extends Node
 
 const rooms_path = "res://scenes/Rooms/newRooms/"
 const out_path = "res://ICON_src/rooms.txt"
-const py_path = "D:/Progetti/Godot/ICON_Project/project/ICON_src/python/mainTest.py"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,12 +24,6 @@ func _ready():
 	file.open(out_path, File.WRITE)
 	file.store_line(data)
 	file.close()
-
-	var output = []
-	var exit_code = OS.execute("python3", [py_path], true, output)
-	var l = Level.new()
-	l.initialize(output[0])
-	ResourceSaver.save("user://lvl.tres", l)
 
 func list_files_in_directory(path):
 	var files = []

@@ -111,3 +111,9 @@ func set_player_position(player: Character, assistant: Node, door_used: int):
 
 func _on_TimeToCheck_timeout():
 	check_and_open()
+
+func set_directions(l, r, t, b):
+	left_room = l
+	right_room = r
+	top_room = t
+	bottom_room = b
