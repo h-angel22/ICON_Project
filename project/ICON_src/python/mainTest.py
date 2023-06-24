@@ -7,7 +7,7 @@ from costraints import *
 dim = 7
 num_archs = 9
 
-rooms_to_use = load_file("project/ICON_src/rooms.txt", dim)
+rooms_to_use = load_file("D:/Progetti/Godot/ICON_Project/project/ICON_src/rooms.txt", dim)
 
 #variabili
 vars = []
@@ -30,7 +30,7 @@ n = num_archs #9#int((dim*(dim-1))/2)
 for i in range(0,n):
     vars.append(Variable("A"+str(i), arch_domain))
 
-print(vars)
+#print(vars)
 
 constraints = []
 
@@ -57,6 +57,8 @@ solution = any_conflict_solver(csp)
 
 archs_to_rooms(rooms_to_use, solution)
 
-save_file("project/ICON_src/out_rooms.txt", rooms_to_use)
+
+
+save_file("out_rooms.txt", rooms_to_use)
 
 #print(solution)

@@ -1,0 +1,7 @@
+NewRoom3.tscn -2 3 4 2
+NewRoom2.tscn -1 -1 5 4
+NewRoom8.tscn -1 5 0 -1
+NewRoom5.tscn 0 -2 6 5
+NewRoom6.tscn 6 -1 1 0
+NewRoom9.tscn 2 -2 3 1
+NewRoom4.tscn -1 4 -2 3

@@ -1,5 +1,7 @@
 extends Node
 
+const py_path = "D:/Progetti/Godot/ICON_Project/project/ICON_src/python/mainTest.py"
+
 export(PackedScene) var player_scene
 export(PackedScene) var assistant_scene
 var player
@@ -31,6 +33,13 @@ func _init():
 	#levels.append("res://levels/LvTutorial.tres")
 	#levels.append("res://levels/Lv1SciFi.tres")
 	#levels.append("res://levels/LvBonus1.tres")
+
+func _generate_level():
+	var level_str = []
+	var exit_code = OS.execute("python3", [py_path], true, level_str)
+	var l = Level.new()
+	l.initialize(level_str[0])
+	ResourceSaver.save("user://lvl.tres", l)
 
 func _ready():
 	#TODO genera livello

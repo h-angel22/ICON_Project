@@ -10,18 +10,16 @@ const out_path = "res://ICON_src/rooms.txt"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var all_files = list_files_in_directory(rooms_path)
-	print(all_files)
 	
 	var room: PackedScene
-	var i: Node
+	var i
 	var data = ""
 	for r in all_files:
 		room = load(rooms_path + r)
 		i = room.instance()
-		data += r + " " + str(i.left_room) + " "+ str(i.right_room) + " " + str(i.top_room) + " " + str(i.bottom_room) + "\n"
+		data += rooms_path + r + " " + str(i.left_room) + " "+ str(i.right_room) + " " + str(i.top_room) + " " + str(i.bottom_room) + "\n"
 	
 	data[-1] = ""
-	print(data)
 	var file = File.new()
 	file.open(out_path, File.WRITE)
 	file.store_line(data)
