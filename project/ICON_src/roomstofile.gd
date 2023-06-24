@@ -25,6 +25,8 @@ func _ready():
 	file.store_line(data)
 	file.close()
 
+	#TODO togli level.initialize() da qui
+
 func list_files_in_directory(path):
 	var files = []
 	var dir = Directory.new()
