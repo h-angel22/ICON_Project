@@ -42,9 +42,9 @@ func _generate_level():
 	ResourceSaver.save("user://lvl.tres", l)
 
 func _ready():
-	#TODO genera livello
+	_generate_level()
 	emit_signal("loaded")
-	levels.append("res://levels/LvBonus1.tres")
+	levels.append("user://lvl.tres")
 	player = player_scene.instance()
 	player.connect("is_dead", self, "_respawn")
 	assistant = assistant_scene.instance()

@@ -113,7 +113,7 @@ func _on_TimeToCheck_timeout():
 	check_and_open()
 
 func set_directions(l, r, t, b):
-	left_room = l
-	right_room = r
-	top_room = t
-	bottom_room = b
+	left_room = int(l)
+	right_room = int(r)
+	top_room = int(t)
+	bottom_room = int(b)
