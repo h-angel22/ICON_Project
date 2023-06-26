@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/prefabs/traps/Bomb.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/prefabs/mob/SpiderBot.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/prefabs/mob/Taz.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/prefabs/traps/BombSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/prefabs/traps/OldBombSpawner.tscn" type="PackedScene" id=5]
 
 [node name="Room" instance=ExtResource( 1 )]
 left_room = 7

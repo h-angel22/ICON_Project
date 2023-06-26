@@ -21,7 +21,11 @@ func initialize(description: String):
 		r_load = load(r_str[0])
 		r_inst = r_load.instance()
 		r_inst.set_directions(r_str[1], r_str[2], r_str[3], r_str[4])
-		ResourceSaver.save(r_str[0], r_inst)
+		
+		var save = PackedScene.new()
+		save.pack(r_inst)
+		ResourceSaver.save(r_str[0], save)
+		
 		rooms.append(r_load)
 	
 	start_room = 0

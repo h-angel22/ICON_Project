@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/prefabs/traps/RocketSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/prefabs/prop/Lever.tscn" type="PackedScene" id=7]
 
-[node name="Room" instance=ExtResource( 2 )]
+[node name="Room2" instance=ExtResource( 2 )]
 right_room = 5
 bottom_room = 3
 

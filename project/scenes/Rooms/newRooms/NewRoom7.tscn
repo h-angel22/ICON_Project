@@ -1,28 +1,188 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://scenes/Rooms/RoomGenericTutorial.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/prefabs/traps/Bomb.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/prefabs/mob/SpiderBot.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/prefabs/mob/Taz.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/prefabs/traps/BombSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/prefabs/mob/Spider.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/prefabs/traps/OldBomb.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/prefabs/mob/Drake.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/traps/Bomb.gd" type="Script" id=4]
+[ext_resource path="res://scenes/prefabs/traps/OldBombSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Room.gd" type="Script" id=6]
+[ext_resource path="res://src/MobIA/SpiderBot.gd" type="Script" id=7]
+[ext_resource path="res://src/traps/BombSpawner.gd" type="Script" id=8]
+[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/room.png" type="Texture" id=11]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/corps/DrakeCorpse.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/sprites/taz/tazIcon.png" type="Texture" id=16]
+[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/MobIA/Taz.gd" type="Script" id=18]
+[ext_resource path="res://src/prop/PortalReward.gd" type="Script" id=19]
+[ext_resource path="res://src/Door.gd" type="Script" id=20]
+[ext_resource path="res://scenes/corps/SpiderBotCorpse.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/prefabs/prop/Web.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/sprites/prop/spawnervecchio.png" type="Texture" id=23]
 
-[node name="Room" instance=ExtResource( 1 )]
-left_room = -1
-right_room = -1
-bottom_room = -1
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 23 ) ],
+"loop": false,
+"name": "default",
+"speed": 1.0
+} ]
 
-[node name="Taz" parent="Objects" index="0" instance=ExtResource( 4 )]
-position = Vector2( -635, -31 )
+[node name="Room3" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 6 )
+closed = true
+left_room = 1
+right_room = 5
+top_room = 0
+bottom_room = 5
 
-[node name="Bomb" parent="Objects" index="1" instance=ExtResource( 2 )]
-position = Vector2( -733, 333 )
+[node name="Sprite" type="Sprite" parent="."]
+z_index = -3
+texture = ExtResource( 11 )
 
-[node name="Bomb2" parent="Objects" index="2" instance=ExtResource( 2 )]
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Left" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 13 )]
+position = Vector2( -944.941, -10.0794 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 20 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
+
+[node name="Right" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 13 )]
+position = Vector2( 861.786, -12.5992 )
+scale = Vector2( -1, 1 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 20 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
+
+[node name="Top" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 12 )]
+position = Vector2( 12.5992, -526.647 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 20 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
+
+[node name="Bottom" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 12 )]
+position = Vector2( 15.119, 524.127 )
+scale = Vector2( 1, -1 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 20 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
+
+[node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
+
+[node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals"]
+polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539 )
+
+[node name="CollisionDown" type="CollisionPolygon2D" parent="CollisionsVerticals"]
+polygon = PoolVector2Array( -960, 540, -816, 366, -56, 426, -78, 521, 79, 522, 71, 437, 719, 407, 959, 539 )
+
+[node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
+
+[node name="CollisionLeft" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( -959, -540, -787, -397, -849, -63, -940, -76, -936, 82, -848, 61, -823, 378, -960, 540 )
+
+[node name="CollisionRight" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( 960, -539, 744, -403, 771, -65, 922, -88, 927, 95, 758, 59, 716, 402, 959, 538 )
+
+[node name="Objects" type="YSort" parent="."]
+
+[node name="StandardReward" type="Node2D" parent="Objects" instance=ExtResource( 15 )]
+visible = false
+scale = Vector2( 0.8, 0.8 )
+z_index = -1
+script = ExtResource( 19 )
+healthScene = ExtResource( 10 )
+manaScene = ExtResource( 9 )
+number_of_hearts = 0
+number_of_mana = 0
+
+[node name="Drake" type="KinematicBody2D" parent="Objects" groups=["Character", "Mob"] instance=ExtResource( 3 )]
+position = Vector2( -635, -30 )
+script = ExtResource( 18 )
+POOF = ExtResource( 17 )
+CORPSE = ExtResource( 14 )
+max_hp = 7
+speed = 5000
+can_fly = true
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = ExtResource( 16 )
+is_summoned = false
+direction = Vector2( 1.5, 2 )
+knock_back = 5.0
+attack_dmg = 3
+attack_speed = 14000.0
+
+[node name="Spider" type="KinematicBody2D" parent="Objects" groups=["BombTarget", "Character", "Mob"] instance=ExtResource( 1 )]
+position = Vector2( 211, -431 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 7 )
+POOF = ExtResource( 17 )
+CORPSE = ExtResource( 21 )
+max_hp = 1
+speed = 4000
+can_fly = false
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = null
+is_summoned = false
+web = ExtResource( 22 )
+
+[node name="BombSpawner" type="AnimatedSprite" parent="Objects" groups=["Environment"] instance=ExtResource( 5 )]
+position = Vector2( 575, 265 )
+scale = Vector2( 0.7, 0.7 )
+frames = SubResource( 3 )
+script = ExtResource( 8 )
+bomb = ExtResource( 2 )
+
+[node name="Bomb3" type="Area2D" parent="Objects" groups=["Bomb", "Shot"] instance=ExtResource( 2 )]
+position = Vector2( -733, 338 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 4 )
+is_shot = true
+speed = 0
+damage = 4
+POOF = ExtResource( 17 )
+
+[node name="Bomb4" type="Area2D" parent="Objects" groups=["Bomb", "Shot"] instance=ExtResource( 2 )]
 position = Vector2( -625, 353 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 4 )
+is_shot = true
+speed = 0
+damage = 4
+POOF = ExtResource( 17 )
 
-[node name="BombSpawner" parent="Objects" index="3" instance=ExtResource( 5 )]
-position = Vector2( 565, 251 )
-frame = 0
+[node name="Events" type="Node" parent="."]
 
-[node name="SpiderBot" parent="Objects" index="4" instance=ExtResource( 3 )]
-position = Vector2( 0, -431 )
+[node name="TimeToCheck" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="area_entered" from="Objects/Bomb3" to="Objects/Bomb3" method="_on_Bomb_area_entered"]
+[connection signal="body_entered" from="Objects/Bomb3" to="Objects/Bomb3" method="_on_Bomb_body_entered"]
+[connection signal="area_entered" from="Objects/Bomb4" to="Objects/Bomb4" method="_on_Bomb_area_entered"]
+[connection signal="body_entered" from="Objects/Bomb4" to="Objects/Bomb4" method="_on_Bomb_body_entered"]
+[connection signal="timeout" from="TimeToCheck" to="." method="_on_TimeToCheck_timeout"]

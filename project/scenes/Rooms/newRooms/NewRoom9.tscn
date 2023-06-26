@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://scenes/Rooms/RoomGenericTutorial.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/prop/Lever.gd" type="Script" id=1]
 [ext_resource path="res://scenes/prefabs/mob/Spider.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/prefabs/prop/FluidBucketGreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Room.gd" type="Script" id=4]
 [ext_resource path="res://assets/decorations/crepa3.png" type="Texture" id=5]
 [ext_resource path="res://scenes/prefabs/prop/FluidBucketPink.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/decorations/crepa1.png" type="Texture" id=7]
@@ -10,28 +11,129 @@
 [ext_resource path="res://src/prop/Levers/LeverLine.gd" type="Script" id=9]
 [ext_resource path="res://scenes/prefabs/prop/SinkVariant.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/prop/Sink.gd" type="Script" id=12]
 [ext_resource path="res://scenes/prefabs/traps/BatSpawner.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/traps/BatSpawner.gd" type="Script" id=14]
+[ext_resource path="res://src/MobIA/SpiderBot.gd" type="Script" id=15]
+[ext_resource path="res://assets/room.png" type="Texture" id=16]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/prefabs/traps/Bat.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=22]
+[ext_resource path="res://src/prop/PortalReward.gd" type="Script" id=23]
+[ext_resource path="res://src/Door.gd" type="Script" id=24]
+[ext_resource path="res://scenes/corps/SpiderBotCorpse.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/prefabs/prop/Web.tscn" type="PackedScene" id=26]
 
-[node name="Room" instance=ExtResource( 1 )]
-left_room = -1
-top_room = -1
-bottom_room = -1
+[node name="Room" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 4 )
+closed = true
+left_room = 4
+right_room = -2
+top_room = 3
+bottom_room = 6
 
-[node name="CollisionUp" parent="CollisionsVerticals" index="0"]
+[node name="Sprite" type="Sprite" parent="."]
+z_index = -3
+texture = ExtResource( 16 )
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Left" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 18 )]
+position = Vector2( -944.941, -10.0794 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 24 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
+
+[node name="Right" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 18 )]
+position = Vector2( 861.786, -12.5992 )
+scale = Vector2( -1, 1 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 24 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
+
+[node name="Top" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 17 )]
+position = Vector2( 12.5992, -526.647 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 24 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
+
+[node name="Bottom" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 17 )]
+position = Vector2( 15.119, 524.127 )
+scale = Vector2( 1, -1 )
+collision_layer = 8
+collision_mask = 63
+script = ExtResource( 24 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
+
+[node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
+
+[node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals"]
 polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539, 143.771, -539.851 )
 
-[node name="SpiderBot" parent="Objects" index="0" instance=ExtResource( 2 )]
+[node name="CollisionDown" type="CollisionPolygon2D" parent="CollisionsVerticals"]
+polygon = PoolVector2Array( -960, 540, -816, 366, -56, 426, -78, 521, 79, 522, 71, 437, 719, 407, 959, 539 )
+
+[node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
+
+[node name="CollisionLeft" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( -959, -540, -787, -397, -849, -63, -940, -76, -936, 82, -848, 61, -823, 378, -960, 540 )
+
+[node name="CollisionRight" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( 960, -539, 744, -403, 771, -65, 922, -88, 927, 95, 758, 59, 716, 402, 959, 538 )
+
+[node name="Objects" type="YSort" parent="."]
+
+[node name="SpiderBot" type="KinematicBody2D" parent="Objects" groups=["BombTarget", "Character", "Mob"] instance=ExtResource( 2 )]
 position = Vector2( -633, -431 )
 collision_layer = 2
 collision_mask = 63
+script = ExtResource( 15 )
+POOF = ExtResource( 22 )
+CORPSE = ExtResource( 25 )
+max_hp = 1
+speed = 4000
+can_fly = false
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = null
+is_summoned = false
+web = ExtResource( 26 )
 
-[node name="SpiderBot2" parent="Objects" index="1" instance=ExtResource( 2 )]
+[node name="SpiderBot2" type="KinematicBody2D" parent="Objects" groups=["BombTarget", "Character", "Mob"] instance=ExtResource( 2 )]
 position = Vector2( 538, 425 )
 scale = Vector2( 1, -1 )
 collision_layer = 2
 collision_mask = 63
+script = ExtResource( 15 )
+POOF = ExtResource( 22 )
+CORPSE = ExtResource( 25 )
+max_hp = 1
+speed = 4000
+can_fly = false
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = null
+is_summoned = false
+web = ExtResource( 26 )
 
-[node name="crepa" type="StaticBody2D" parent="Objects" index="2" groups=["Environment", "Hole", "IgnoreRaycast"]]
+[node name="crepa" type="StaticBody2D" parent="Objects" groups=["Environment", "Hole", "IgnoreRaycast"]]
 position = Vector2( 510, -13 )
 z_index = -2
 collision_layer = 2
@@ -40,14 +142,14 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Crepa3" type="Sprite" parent="Objects/crepa" index="0"]
+[node name="Crepa3" type="Sprite" parent="Objects/crepa"]
 texture = ExtResource( 5 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/crepa" index="1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/crepa"]
 position = Vector2( 241, -129 )
 polygon = PoolVector2Array( -5, 2, -12, -73, -60, -81, -76, -44, -103, -65, -118, -66, -149, -89, -189, -56, -244, -78, -240, -52, -269, -39, -301, -48, -341, -21, -379, -35, -406, -24, -408, -10, -374, 16, -421, 55, -445, 31, -461, 73, -469, 127, -457, 128, -450, 179, -380, 204, -363, 237, -415, 212, -429, 262, -378, 297, -379, 319, -333, 328, -319, 341, -263, 263, -237, 332, -186, 331, -169, 353, -131, 338, -100, 359, -65, 342, -41, 377, -13, 366, -9, 324, -31, 302, -32, 248, -68, 243, -88, 214, -135, 227, -154, 192, -172, 187, -186, 202, -178, 258, -206, 253, -219, 196, -260, 199, -258, 155, -313, 118, -293, 82, -245, 91, -214, 55, -171, 82, -130, 86, -119, 82, -133, 45, -108, 26, -74, 59, -39, -3, -13, 2 )
 
-[node name="crepa2" type="StaticBody2D" parent="Objects" index="3" groups=["Environment", "Hole", "IgnoreRaycast"]]
+[node name="crepa2" type="StaticBody2D" parent="Objects" groups=["Environment", "Hole", "IgnoreRaycast"]]
 position = Vector2( -356, -195 )
 z_index = -2
 collision_layer = 2
@@ -56,108 +158,172 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Crepa3" type="Sprite" parent="Objects/crepa2" index="0"]
+[node name="Crepa3" type="Sprite" parent="Objects/crepa2"]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/crepa2" index="1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/crepa2"]
 position = Vector2( -712, 179 )
 polygon = PoolVector2Array( 671, -223, 689, -239, 700, -258, 759, -271, 781, -271, 770, -252, 765, -239, 784, -235, 786, -216, 803, -208, 795, -181, 765, -182, 746, -152, 714, -158, 698, -185, 678, -181 )
 
-[node name="LeverGreen" parent="Objects" index="4" instance=ExtResource( 8 )]
+[node name="LeverGreen" type="Area2D" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 580, 342 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
+is_on = false
 on_color = Color( 0.588235, 0.976471, 0.862745, 1 )
 off_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 line_name = "Green"
 
-[node name="LeverGreen1" parent="Objects" index="5" instance=ExtResource( 8 )]
+[node name="LeverGreen1" type="Area2D" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -608, -60 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
+is_on = false
 on_color = Color( 0.588235, 0.976471, 0.862745, 1 )
 off_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 line_name = "Green1"
 
-[node name="LeverPink" parent="Objects" index="6" instance=ExtResource( 8 )]
+[node name="LeverPink" type="Area2D" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -705, -362 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
+is_on = false
 on_color = Color( 0.937255, 0.596078, 0.984314, 1 )
 off_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 line_name = "Pink"
 
-[node name="LeverPink1" parent="Objects" index="7" instance=ExtResource( 8 )]
+[node name="LeverPink1" type="Area2D" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 203, -160 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
+is_on = false
 on_color = Color( 0.937255, 0.596078, 0.984314, 1 )
 off_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 line_name = "Pink1"
 
-[node name="Sink" parent="Objects" index="8" instance=ExtResource( 10 )]
+[node name="Sink" type="Node2D" parent="Objects" groups=["Environment"] instance=ExtResource( 10 )]
 position = Vector2( -418, 386 )
+script = ExtResource( 12 )
+leverpinkname = "Pink"
+levergreenname = "Green"
 
-[node name="Sink1" parent="Objects" index="9" instance=ExtResource( 10 )]
+[node name="Sink1" type="Node2D" parent="Objects" groups=["Environment"] instance=ExtResource( 10 )]
 position = Vector2( 519, -252 )
+script = ExtResource( 12 )
 leverpinkname = "Pink1"
 levergreenname = "Green1"
 
-[node name="Green1Line" type="Line2D" parent="Objects" index="10"]
+[node name="Green1Line" type="Line2D" parent="Objects"]
 z_index = -3
 points = PoolVector2Array( -680, -72, -680, 80, 56, 80, 56, -352, 525, -352 )
 default_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 
-[node name="Pink1Line" type="Line2D" parent="Objects" index="11"]
+[node name="Pink1Line" type="Line2D" parent="Objects"]
 z_index = -1
 points = PoolVector2Array( 274, -137, 322, -137, 322, -300, 472, -300 )
 default_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 
-[node name="GreenLine" type="Line2D" parent="Objects" index="12"]
+[node name="GreenLine" type="Line2D" parent="Objects"]
 z_index = -3
 points = PoolVector2Array( 656, 336, 656, 392, -80, 392, -80, -384, -472, -384, -472, 288 )
 default_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 
-[node name="PinkLine" type="Line2D" parent="Objects" index="13"]
+[node name="PinkLine" type="Line2D" parent="Objects"]
 z_index = -3
 points = PoolVector2Array( -776, -288, -544, -288, -544, 144, 208, 144, 208, 320, -312, 320, -315, 289 )
 default_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 
-[node name="PortalReward" parent="Objects" index="14" instance=ExtResource( 11 )]
+[node name="PortalReward" type="Node2D" parent="Objects" instance=ExtResource( 11 )]
 visible = false
 position = Vector2( -212, -80 )
+scale = Vector2( 0.8, 0.8 )
+z_index = -1
+script = ExtResource( 23 )
+healthScene = ExtResource( 21 )
+manaScene = ExtResource( 20 )
+number_of_hearts = 1
 number_of_mana = 2
 
-[node name="RocketSpawner" parent="Objects" index="15" instance=ExtResource( 13 )]
+[node name="RocketSpawner" type="Node2D" parent="Objects" instance=ExtResource( 13 )]
 position = Vector2( -350, -494 )
+z_index = -1
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+bat = ExtResource( 19 )
+flipx = true
+flipy = true
+active = false
 
-[node name="RocketSpawner2" parent="Objects" index="16" instance=ExtResource( 13 )]
+[node name="RocketSpawner2" type="Node2D" parent="Objects" instance=ExtResource( 13 )]
 position = Vector2( 860, -270 )
+z_index = -1
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+bat = ExtResource( 19 )
+flipx = true
+flipy = true
+active = false
 
-[node name="RocketSpawner3" parent="Objects" index="17" instance=ExtResource( 13 )]
+[node name="RocketSpawner3" type="Node2D" parent="Objects" instance=ExtResource( 13 )]
 position = Vector2( 348, -489 )
+z_index = -1
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+bat = ExtResource( 19 )
+flipx = true
+flipy = true
+active = false
 
-[node name="Lever" parent="Objects" index="18" instance=ExtResource( 8 )]
+[node name="Lever" type="Area2D" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 583, 5 )
+script = ExtResource( 1 )
 is_on = true
 
-[node name="FluidBucketPink" parent="Objects" index="20" instance=ExtResource( 6 )]
+[node name="StandardReward" type="Node2D" parent="Objects" instance=ExtResource( 11 )]
+visible = false
+scale = Vector2( 0.8, 0.8 )
+z_index = -1
+script = ExtResource( 23 )
+healthScene = ExtResource( 21 )
+manaScene = ExtResource( 20 )
+number_of_hearts = 0
+number_of_mana = 0
+
+[node name="FluidContainerPink" type="Node2D" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( -762, -268 )
 
-[node name="FluidBucketPink2" parent="Objects" index="21" instance=ExtResource( 6 )]
+[node name="FluidContainerPink2" type="Node2D" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 255, -116 )
 
-[node name="FluidBucketGreen" parent="Objects" index="22" instance=ExtResource( 3 )]
+[node name="FluidContainerGreen" type="Node2D" parent="Objects" instance=ExtResource( 3 )]
 position = Vector2( 662, 339 )
 
-[node name="FluidBucketGreen2" parent="Objects" index="23" instance=ExtResource( 3 )]
+[node name="FluidContainerGreen2" type="Node2D" parent="Objects" instance=ExtResource( 3 )]
 position = Vector2( -677, -64 )
 
+[node name="Events" type="Node" parent="."]
+
+[node name="TimeToCheck" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="body_entered" from="Objects/LeverGreen" to="Objects/LeverGreen" method="_on_Lever_body_entered"]
 [connection signal="used" from="Objects/LeverGreen" to="Objects/Sink" method="_on_Lever_used"]
+[connection signal="body_entered" from="Objects/LeverGreen1" to="Objects/LeverGreen1" method="_on_Lever_body_entered"]
 [connection signal="used" from="Objects/LeverGreen1" to="Objects/Sink1" method="_on_Lever_used"]
+[connection signal="body_entered" from="Objects/LeverPink" to="Objects/LeverPink" method="_on_Lever_body_entered"]
 [connection signal="used" from="Objects/LeverPink" to="Objects/Sink" method="_on_Lever_used"]
+[connection signal="body_entered" from="Objects/LeverPink1" to="Objects/LeverPink1" method="_on_Lever_body_entered"]
 [connection signal="used" from="Objects/LeverPink1" to="Objects/Sink1" method="_on_Lever_used"]
+[connection signal="body_entered" from="Objects/Lever" to="Objects/Lever" method="_on_Lever_body_entered"]
 [connection signal="staus_changed" from="Objects/Lever" to="Objects/RocketSpawner" method="set_status"]
 [connection signal="staus_changed" from="Objects/Lever" to="Objects/RocketSpawner2" method="set_status"]
 [connection signal="staus_changed" from="Objects/Lever" to="Objects/RocketSpawner3" method="set_status"]
+[connection signal="timeout" from="TimeToCheck" to="." method="_on_TimeToCheck_timeout"]

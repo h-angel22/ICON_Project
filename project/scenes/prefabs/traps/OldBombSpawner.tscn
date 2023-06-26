@@ -1,60 +1,58 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/sprites/traps/bombe/spawnerbombe2.png" type="Texture" id=1]
-[ext_resource path="res://assets/sprites/traps/bombe/spawnerbombe1.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/prop/spawnervecchio.png" type="Texture" id=1]
+[ext_resource path="res://scenes/prefabs/traps/OldBomb.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/traps/BombSpawner.gd" type="Script" id=3]
-[ext_resource path="res://scenes/prefabs/traps/Bomb.tscn" type="PackedScene" id=4]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
 "name": "default",
-"speed": 3.0
+"speed": 1.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 80.0098
 
 [node name="BombSpawner" type="AnimatedSprite" groups=["Environment"]]
-scale = Vector2( 0.8, 0.8 )
-frames = SubResource( 1 )
-playing = true
+scale = Vector2( 0.7, 0.7 )
+frames = SubResource( 3 )
 script = ExtResource( 3 )
-bomb = ExtResource( 4 )
+bomb = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( -208.75, 130 )
+position = Vector2( -257.143, 120 )
 
 [node name="CollisionVertivals" type="StaticBody2D" parent="." groups=["Environment", "IgnorePortal", "VerticalEnvironment"]]
 scale = Vector2( 0.6, 0.6 )
 
 [node name="Top" type="CollisionPolygon2D" parent="CollisionVertivals"]
-polygon = PoolVector2Array( -27.0833, 66.6667, -20.8333, 2.08333, 304.167, -4.16667, 306.25, 79.1667, -250, 110.417, -231.25, 85.4167 )
+polygon = PoolVector2Array( -150, -4.7619, -107.143, -9.52381, 214.286, -4.7619, 261.905, 66.6667, -323.809, 169.048, -354.762, 107.143 )
 
 [node name="Bottom" type="CollisionPolygon2D" parent="CollisionVertivals"]
-polygon = PoolVector2Array( -195.833, 191.667, -172.917, 210.417, -72.9167, 220.833, 58.3333, 218.75, 137.5, 295.833, 295.833, 295.833, 295.833, 235.417, 47.9167, 183.333 )
+polygon = PoolVector2Array( -195.833, 191.667, -172.917, 210.417, -45.2381, 278.571, 57.1429, 288.095, 137.5, 295.833, 257.143, 295.238, 269.048, 230.952, 47.9167, 183.333 )
 
 [node name="Center" type="CollisionPolygon2D" parent="CollisionVertivals"]
-polygon = PoolVector2Array( -241.667, 110.417, 41.6667, 75, 58.3333, 195.833, -189.583, 200 )
+polygon = PoolVector2Array( -319.048, 130.952, 211.905, 21.4286, 269.048, 233.333, -226.19, 197.619 )
 
 [node name="CollisionHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment", "IgnorePortal"]]
 scale = Vector2( 0.6, 0.6 )
 
 [node name="Left" type="CollisionPolygon2D" parent="CollisionHorizontals"]
-polygon = PoolVector2Array( -252.083, 114.583, -243.75, 156.25, -172.917, 212.5, -241.667, 100 )
+polygon = PoolVector2Array( -316.667, 195.238, -288.095, 233.333, -172.917, 212.5, -359.524, 109.524 )
 
 [node name="Right" type="CollisionPolygon2D" parent="CollisionHorizontals"]
-polygon = PoolVector2Array( 308.333, 0, 295.833, 295.833, 268.75, 297.917, 285.417, 10.4167 )
+polygon = PoolVector2Array( 271.429, 57.1429, 276.19, 295.238, 233.333, 297.619, 226.19, 2.38095 )
 
 [node name="InternalShape" type="StaticBody2D" parent="." groups=["Environment"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InternalShape"]
-position = Vector2( 96.25, 72.5 )
+position = Vector2( 92.8571, 90 )
 shape = SubResource( 2 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
