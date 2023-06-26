@@ -30,10 +30,10 @@
 pause_mode = 1
 script = ExtResource( 13 )
 closed = true
-left_room = 3
-right_room = 5
-top_room = 6
-bottom_room = 0
+left_room = 6
+right_room = 4
+top_room = 3
+bottom_room = 5
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3

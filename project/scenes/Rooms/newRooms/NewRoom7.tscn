@@ -36,10 +36,10 @@ animations = [ {
 pause_mode = 1
 script = ExtResource( 6 )
 closed = true
-left_room = 1
-right_room = 5
-top_room = 0
-bottom_room = 5
+left_room = 0
+right_room = 2
+top_room = 6
+bottom_room = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3

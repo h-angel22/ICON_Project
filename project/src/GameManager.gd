@@ -40,10 +40,12 @@ func _generate_level():
 	var l = Level.new()
 	l.initialize(level_str[0])
 	ResourceSaver.save("user://lvl.tres", l)
+	emit_signal("loaded")
 
 func _ready():
-	_generate_level()
-	emit_signal("loaded")
+	var thread = Thread.new()
+	thread.start(self, "_generate_level")
+	
 	levels.append("user://lvl.tres")
 	player = player_scene.instance()
 	player.connect("is_dead", self, "_respawn")
