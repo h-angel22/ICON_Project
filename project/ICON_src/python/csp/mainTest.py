@@ -4,8 +4,8 @@ from cspProblem import Variable, CSP, Constraint
 from cspSLS import *
 from costraints import *
 
-dim = 7
-num_archs = 9
+dim = 8
+num_archs = 10
 
 rooms_to_use = load_file("D:/Progetti/Godot/ICON_Project/project/ICON_src/rooms.txt", dim)
 
@@ -30,11 +30,12 @@ n = num_archs #9#int((dim*(dim-1))/2)
 for i in range(0,n):
     vars.append(Variable("A"+str(i), arch_domain))
 
-#print(vars)
+print(rooms_to_use)
 
 constraints = []
 
 constraints.append( Constraint(vars, not_equals, "non possono esserci 2 archi uguali") )
+constraints.append( Constraint(vars, to_boss, "può esserci solo un entrata alla stanza del boss") )
 constraints.append( Constraint(vars, not_mirrors, "non possono esserci archi con valori specchiati") ) # tutti gli archi
 constraints.append( Constraint(vars, not_samecolumn, "non si può ripetere un unumero in una stessa posizione dell'arco")) #tutti gli archi
 constraints.append( Constraint(vars, not_opposite, "non possono esserci archi orizzontali e verticali con gli stessi valori") ) # tutti gli archi

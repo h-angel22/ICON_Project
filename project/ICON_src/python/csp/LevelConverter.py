@@ -11,8 +11,8 @@ def load_file(path, dim):
 
     random.shuffle(arr)
 
-    #TODO da generalizzare
-    rooms_to_use = arr[:dim]
+    rooms_to_use = [Room("res://scenes/Rooms/CheckpointRoom.tscn -1 -1 -1 -1"), Room("res://scenes/Rooms/NewBossRoom.tscn -1 -1 -1 -1")]
+    rooms_to_use = rooms_to_use + arr[:dim-2]
     for i in range(0,dim):
         rooms_to_use[i].id = i
 

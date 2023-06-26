@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/prefabs/mob/Blower.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Door.gd" type="Script" id=3]
+[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/prefabs/traps/Plant.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/events/SummonDialogueEvent.gd" type="Script" id=6]
+[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/decorations/liane3.png" type="Texture" id=7]
 [ext_resource path="res://assets/decorations/erba_a_caso_5.png" type="Texture" id=8]
 [ext_resource path="res://assets/decorations/liane2.png" type="Texture" id=9]
@@ -15,24 +15,22 @@
 [ext_resource path="res://src/MobIA/Blower.gd" type="Script" id=13]
 [ext_resource path="res://src/Room.gd" type="Script" id=14]
 [ext_resource path="res://src/prop/PortalReward.gd" type="Script" id=15]
-[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/Door.gd" type="Script" id=16]
+[ext_resource path="res://scenes/corps/BlowerCorpse.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/room.png" type="Texture" id=18]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/corps/BlowerCorpse.tscn" type="PackedScene" id=22]
-[ext_resource path="res://scenes/prefabs/prop/shots/Blow.tscn" type="PackedScene" id=23]
-[ext_resource path="res://assets/sprites/blower/BlowerIcon.png" type="Texture" id=24]
+[ext_resource path="res://scenes/prefabs/prop/shots/Blow.tscn" type="PackedScene" id=21]
+[ext_resource path="res://assets/sprites/blower/BlowerIcon.png" type="Texture" id=22]
 
 [node name="Room" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 14 )
 closed = true
-left_room = 1
-right_room = 5
-top_room = 5
-bottom_room = 6
+left_room = 5
+right_room = 0
+top_room = 1
+bottom_room = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3
@@ -44,7 +42,7 @@ texture = ExtResource( 18 )
 position = Vector2( -944.941, -10.0794 )
 collision_layer = 8
 collision_mask = 63
-script = ExtResource( 3 )
+script = ExtResource( 16 )
 is_vertical = false
 is_enabled = false
 offset = 150.0
@@ -54,7 +52,7 @@ position = Vector2( 861.786, -12.5992 )
 scale = Vector2( -1, 1 )
 collision_layer = 8
 collision_mask = 63
-script = ExtResource( 3 )
+script = ExtResource( 16 )
 is_vertical = false
 is_enabled = false
 offset = 150.0
@@ -63,7 +61,7 @@ offset = 150.0
 position = Vector2( 12.5992, -526.647 )
 collision_layer = 8
 collision_mask = 63
-script = ExtResource( 3 )
+script = ExtResource( 16 )
 is_vertical = true
 is_enabled = false
 offset = 150.0
@@ -73,7 +71,7 @@ position = Vector2( 15.119, 524.127 )
 scale = Vector2( 1, -1 )
 collision_layer = 8
 collision_mask = 63
-script = ExtResource( 3 )
+script = ExtResource( 16 )
 is_vertical = true
 is_enabled = false
 offset = 150.0
@@ -101,17 +99,17 @@ position = Vector2( 307.328, -115.512 )
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 13 )
-POOF = ExtResource( 21 )
-CORPSE = ExtResource( 22 )
+POOF = ExtResource( 6 )
+CORPSE = ExtResource( 17 )
 max_hp = 3
 speed = 5000
 can_fly = false
 automated_hp = true
 flip = false
 contact_damage = 1
-icon = ExtResource( 24 )
+icon = ExtResource( 22 )
 is_summoned = false
-blow = ExtResource( 23 )
+blow = ExtResource( 21 )
 
 [node name="Plant" type="Area2D" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( -597, 112 )
@@ -148,8 +146,8 @@ position = Vector2( 523, -304 )
 scale = Vector2( 0.8, 0.8 )
 z_index = -1
 script = ExtResource( 15 )
-healthScene = ExtResource( 16 )
-manaScene = ExtResource( 17 )
+healthScene = ExtResource( 3 )
+manaScene = ExtResource( 5 )
 number_of_hearts = 1
 number_of_mana = 0
 
@@ -158,8 +156,8 @@ visible = false
 scale = Vector2( 0.8, 0.8 )
 z_index = -1
 script = ExtResource( 15 )
-healthScene = ExtResource( 16 )
-manaScene = ExtResource( 17 )
+healthScene = ExtResource( 3 )
+manaScene = ExtResource( 5 )
 number_of_hearts = 0
 number_of_mana = 0
 
@@ -202,16 +200,10 @@ texture = ExtResource( 8 )
 
 [node name="Events" type="Node" parent="."]
 
-[node name="SummonDialogueEvent" type="Node" parent="Events" groups=["Event"] instance=ExtResource( 5 )]
-script = ExtResource( 6 )
-activated = false
-auto_start = false
-
 [node name="TimeToCheck" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
 
-[connection signal="completed" from="." to="Events/SummonDialogueEvent" method="activate"]
 [connection signal="area_entered" from="Objects/Plant" to="Objects/Plant" method="_on_detect"]
 [connection signal="body_entered" from="Objects/Plant" to="Objects/Plant" method="_on_detect"]
 [connection signal="area_entered" from="Objects/Plant2" to="Objects/Plant2" method="_on_detect"]

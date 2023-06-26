@@ -19,14 +19,14 @@ animations = [ {
 "name": "radio",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "talking",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "shocked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "talking",
 "speed": 5.0
 } ]
 
@@ -35,7 +35,8 @@ radius = 39.0128
 
 [node name="Assistant" type="Area2D" groups=["Assistant"]]
 script = ExtResource( 1 )
-max_mana = 5
+summons_number = 2
+max_mana = 7
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 13.3484, -80.0904 )

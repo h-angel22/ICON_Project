@@ -33,7 +33,7 @@ radius = 43.5115
 [node name="Player" groups=["Player", "PlayerAlly"] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 CORPSE = ExtResource( 5 )
-max_hp = 6
+max_hp = 10
 speed = 30000
 automated_hp = false
 

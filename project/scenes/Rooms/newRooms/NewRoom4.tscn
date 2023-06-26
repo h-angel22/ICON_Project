@@ -28,8 +28,8 @@ script = ExtResource( 7 )
 closed = true
 left_room = 2
 right_room = 4
-top_room = 1
-bottom_room = 3
+top_room = 7
+bottom_room = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3

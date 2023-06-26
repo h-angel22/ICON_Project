@@ -1,24 +1,35 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/prefabs/mob/Drake.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/decorations/crepa1.png" type="Texture" id=4]
 [ext_resource path="res://assets/decorations/crepa2.png" type="Texture" id=5]
 [ext_resource path="res://scenes/prefabs/traps/BatSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/prefabs/prop/LeverVariant.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Room.gd" type="Script" id=9]
+[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/MobIA/Taz.gd" type="Script" id=11]
 [ext_resource path="res://assets/room.png" type="Texture" id=12]
+[ext_resource path="res://src/traps/BatSpawner.gd" type="Script" id=13]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/Door.gd" type="Script" id=16]
+[ext_resource path="res://src/prop/PortalReward.gd" type="Script" id=17]
+[ext_resource path="res://assets/sprites/taz/tazIcon.png" type="Texture" id=18]
+[ext_resource path="res://scenes/prefabs/traps/Bat.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/corps/DrakeCorpse.tscn" type="PackedScene" id=20]
+[ext_resource path="res://src/prop/Lever.gd" type="Script" id=21]
 
 [node name="Room2" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 9 )
 closed = true
-left_room = 3
-right_room = 3
-top_room = 2
-bottom_room = 2
+left_room = 1
+right_room = 4
+top_room = 4
+bottom_room = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 z_index = -3
@@ -26,27 +37,43 @@ texture = ExtResource( 12 )
 
 [node name="Doors" type="Node2D" parent="."]
 
-[node name="Left" parent="Doors" instance=ExtResource( 15 )]
+[node name="Left" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 15 )]
 position = Vector2( -944.941, -10.0794 )
 collision_layer = 8
 collision_mask = 63
+script = ExtResource( 16 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
 
-[node name="Right" parent="Doors" instance=ExtResource( 15 )]
+[node name="Right" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 15 )]
 position = Vector2( 861.786, -12.5992 )
 scale = Vector2( -1, 1 )
 collision_layer = 8
 collision_mask = 63
+script = ExtResource( 16 )
+is_vertical = false
+is_enabled = false
+offset = 150.0
 
-[node name="Top" parent="Doors" instance=ExtResource( 14 )]
+[node name="Top" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 14 )]
 position = Vector2( 12.5992, -526.647 )
 collision_layer = 8
 collision_mask = 63
+script = ExtResource( 16 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
 
-[node name="Bottom" parent="Doors" instance=ExtResource( 14 )]
+[node name="Bottom" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 14 )]
 position = Vector2( 15.119, 524.127 )
 scale = Vector2( 1, -1 )
 collision_layer = 8
 collision_mask = 63
+script = ExtResource( 16 )
+is_vertical = true
+is_enabled = false
+offset = 150.0
 
 [node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
 
@@ -185,32 +212,91 @@ rotation = -3.14159
 scale = Vector2( 1, -1 )
 polygon = PoolVector2Array( 622, -241, 657, -179, 652, -131, 682, -87, 662, -37, 697, 27, 725, 20, 763, 42, 801, 23, 866, 64, 871, 35, 838, 4, 858, -4, 854, -48, 824, -79, 829, -134, 782, -142, 749, -188, 708, -189, 707, -212, 671, -201, 620, -243 )
 
-[node name="PortalReward" parent="Objects" instance=ExtResource( 3 )]
+[node name="PortalReward" type="Node2D" parent="Objects" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, -298 )
+scale = Vector2( 0.8, 0.8 )
+z_index = -1
+script = ExtResource( 17 )
+healthScene = ExtResource( 10 )
+manaScene = ExtResource( 8 )
+number_of_hearts = 1
+number_of_mana = 1
 
-[node name="RocketSpawner" parent="Objects" instance=ExtResource( 6 )]
+[node name="RocketSpawner" type="Node2D" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( -393, 476 )
+z_index = -1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+bat = ExtResource( 19 )
+flipx = false
+flipy = false
 active = true
 
-[node name="RocketSpawner2" parent="Objects" instance=ExtResource( 6 )]
+[node name="RocketSpawner2" type="Node2D" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 857, -201 )
+z_index = -1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+bat = ExtResource( 19 )
 flipx = true
+flipy = false
 active = true
 
-[node name="Lever" parent="Objects" instance=ExtResource( 7 )]
+[node name="Lever" type="Area2D" parent="Objects" instance=ExtResource( 7 )]
+position = Vector2( -468, -205 )
+script = ExtResource( 21 )
 is_on = true
 
-[node name="StandardReward" parent="Objects" instance=ExtResource( 3 )]
+[node name="StandardReward" type="Node2D" parent="Objects" instance=ExtResource( 3 )]
 visible = false
+scale = Vector2( 0.8, 0.8 )
+z_index = -1
+script = ExtResource( 17 )
+healthScene = ExtResource( 10 )
+manaScene = ExtResource( 8 )
 number_of_hearts = 0
 number_of_mana = 0
 
-[node name="Drake" parent="Objects" instance=ExtResource( 1 )]
+[node name="Drake" type="KinematicBody2D" parent="Objects" groups=["Character", "Mob"] instance=ExtResource( 1 )]
 position = Vector2( 216, 343 )
+script = ExtResource( 11 )
+POOF = ExtResource( 2 )
+CORPSE = ExtResource( 20 )
+max_hp = 7
+speed = 5000
+can_fly = true
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = ExtResource( 18 )
+is_summoned = false
+direction = Vector2( 1.5, 2 )
+knock_back = 5.0
+attack_dmg = 3
+attack_speed = 14000.0
 
-[node name="Drake2" parent="Objects" instance=ExtResource( 1 )]
+[node name="Drake2" type="KinematicBody2D" parent="Objects" groups=["Character", "Mob"] instance=ExtResource( 1 )]
 position = Vector2( 575, 191 )
+script = ExtResource( 11 )
+POOF = ExtResource( 2 )
+CORPSE = ExtResource( 20 )
+max_hp = 7
+speed = 5000
+can_fly = true
+automated_hp = true
+flip = false
+contact_damage = 1
+icon = ExtResource( 18 )
+is_summoned = false
+direction = Vector2( 1.5, 2 )
+knock_back = 5.0
+attack_dmg = 3
+attack_speed = 14000.0
 
 [node name="Events" type="Node" parent="."]
 
@@ -218,6 +304,7 @@ position = Vector2( 575, 191 )
 wait_time = 0.05
 one_shot = true
 
+[connection signal="body_entered" from="Objects/Lever" to="Objects/Lever" method="_on_Lever_body_entered"]
 [connection signal="staus_changed" from="Objects/Lever" to="Objects/RocketSpawner" method="set_status"]
 [connection signal="staus_changed" from="Objects/Lever" to="Objects/RocketSpawner2" method="set_status"]
 [connection signal="timeout" from="TimeToCheck" to="." method="_on_TimeToCheck_timeout"]

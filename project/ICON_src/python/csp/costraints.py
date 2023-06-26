@@ -191,6 +191,16 @@ def can_connect(rooms):
     check_bool_rooms.__name__ = "room_can_connect"
     return check_bool_rooms
 
+def to_boss(*archs):
+    cont = 0
+    for a in archs:
+        for i in a:
+            if (i == 1):
+                cont+=1
+        if cont > 1:
+            break
+    return cont == 1
+
 #test
 """
 graph = { "A" : ["B", "C"],

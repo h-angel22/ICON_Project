@@ -37,7 +37,7 @@ pause_mode = 1
 script = ExtResource( 6 )
 closed = true
 left_room = 6
-right_room = 4
+right_room = 5
 top_room = 3
 bottom_room = 2
 

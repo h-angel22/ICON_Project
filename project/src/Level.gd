@@ -27,9 +27,9 @@ func initialize(description: String):
 		ResourceSaver.save(r_str[0], save)
 		
 		rooms.append(r_load)
-	
+
 	start_room = 0
-	boss_room = -1
+	boss_room = 1
 
 func get_rooms():
 	return rooms
