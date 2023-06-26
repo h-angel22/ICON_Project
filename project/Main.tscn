@@ -189,7 +189,7 @@ color = Color( 0.352941, 0.352941, 1, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="HUD/Loading"]
 frames = SubResource( 6 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

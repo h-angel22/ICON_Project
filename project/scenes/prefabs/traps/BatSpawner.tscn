@@ -11,8 +11,6 @@ __meta__ = {
 "_edit_group_": true
 }
 bat = ExtResource( 9 )
-flipx = true
-flipy = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.3, 0.3 )

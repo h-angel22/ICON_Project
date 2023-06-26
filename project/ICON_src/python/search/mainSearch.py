@@ -1,4 +1,4 @@
-from searchProblem import *
+from searchProblem import Search_problem_from_explicit_graph, Arc
 from searchGeneric import AStarSearcher
 
 
