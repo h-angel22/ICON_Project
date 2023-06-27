@@ -1,0 +1,123 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://src/Room.gd" type="Script" id=1]
+[ext_resource path="res://scenes/prefabs/prop/portals/Checkpoint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ICON_src/Arrow.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/hud/arrow11.png" type="Texture" id=12]
+[ext_resource path="res://assets/hud/arrow1.png" type="Texture" id=13]
+[ext_resource path="res://assets/hud/arrow4.png" type="Texture" id=14]
+[ext_resource path="res://assets/hud/arrow2.png" type="Texture" id=15]
+[ext_resource path="res://assets/hud/arrow9.png" type="Texture" id=16]
+[ext_resource path="res://assets/room.png" type="Texture" id=17]
+[ext_resource path="res://assets/hud/arrow8.png" type="Texture" id=18]
+[ext_resource path="res://assets/hud/arrow5.png" type="Texture" id=19]
+[ext_resource path="res://assets/hud/arrow3.png" type="Texture" id=20]
+[ext_resource path="res://assets/hud/arrow7.png" type="Texture" id=21]
+[ext_resource path="res://assets/hud/arrow10.png" type="Texture" id=22]
+[ext_resource path="res://assets/hud/arrow6.png" type="Texture" id=23]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 13 ), ExtResource( 15 ), ExtResource( 20 ), ExtResource( 14 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 22 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Room" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 1 )
+closed = true
+left_room = -1
+right_room = -1
+top_room = -1
+bottom_room = -1
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = -3
+texture = ExtResource( 17 )
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Left" parent="Doors" instance=ExtResource( 9 )]
+position = Vector2( -944.941, -10.0794 )
+collision_layer = 8
+collision_mask = 63
+
+[node name="Right" parent="Doors" instance=ExtResource( 9 )]
+position = Vector2( 861.786, -12.5992 )
+scale = Vector2( -1, 1 )
+collision_layer = 8
+collision_mask = 63
+
+[node name="Top" parent="Doors" instance=ExtResource( 11 )]
+position = Vector2( 12.5992, -526.647 )
+collision_layer = 8
+collision_mask = 63
+
+[node name="Bottom" parent="Doors" instance=ExtResource( 11 )]
+position = Vector2( 15.119, 524.127 )
+scale = Vector2( 1, -1 )
+collision_layer = 8
+collision_mask = 63
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="LeftArrow" parent="Arrows" instance=ExtResource( 10 )]
+visible = false
+rotation = -1.5708
+frames = SubResource( 1 )
+frame = 10
+
+[node name="RightArrow" parent="Arrows" instance=ExtResource( 10 )]
+visible = false
+rotation = 1.5708
+frames = SubResource( 1 )
+frame = 8
+
+[node name="TopArrow" parent="Arrows" instance=ExtResource( 10 )]
+visible = false
+frames = SubResource( 1 )
+frame = 6
+
+[node name="BottomArrow" parent="Arrows" instance=ExtResource( 10 )]
+visible = false
+rotation = 3.14159
+frames = SubResource( 1 )
+frame = 9
+
+[node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
+
+[node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals"]
+polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539 )
+
+[node name="CollisionDown" type="CollisionPolygon2D" parent="CollisionsVerticals"]
+polygon = PoolVector2Array( -960, 540, -816, 366, -56, 426, -78, 521, 79, 522, 71, 437, 719, 407, 959, 539 )
+
+[node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
+
+[node name="CollisionLeft" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( -959, -540, -787, -397, -849, -63, -940, -76, -936, 82, -848, 61, -823, 378, -960, 540 )
+
+[node name="CollisionRight" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
+polygon = PoolVector2Array( 960, -539, 744, -403, 771, -65, 922, -88, 927, 95, 758, 59, 716, 402, 959, 538 )
+
+[node name="Objects" type="YSort" parent="."]
+
+[node name="StandardReward" parent="Objects" instance=ExtResource( 8 )]
+visible = false
+number_of_hearts = 0
+number_of_mana = 0
+
+[node name="Checkpoint" parent="Objects" instance=ExtResource( 3 )]
+
+[node name="Events" type="Node" parent="."]
+
+[node name="TimeToCheck" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="TimeToCheck" to="." method="_on_TimeToCheck_timeout"]

@@ -12,6 +12,12 @@
 [node name="Room" instance=ExtResource( 1 )]
 top_room = 1
 
+[node name="starfall" parent="." index="5" instance=ExtResource( 6 )]
+position = Vector2( 847, -336 )
+rotation = 1.5708
+z_index = -1
+cooldown = 7
+
 [node name="Checkpoint" parent="Objects" index="0" instance=ExtResource( 2 )]
 position = Vector2( -536.935, -219.255 )
 
@@ -19,11 +25,11 @@ position = Vector2( -536.935, -219.255 )
 position = Vector2( 486, 166 )
 rotation = -1.65806
 
-[node name="starfall" parent="." index="5" instance=ExtResource( 6 )]
-position = Vector2( 847, -336 )
-rotation = 1.5708
-z_index = -1
-cooldown = 7
+[node name="ErbaACaso2" type="Sprite" parent="." index="7"]
+position = Vector2( 455, 170 )
+rotation = -1.65806
+z_index = 1
+texture = ExtResource( 7 )
 
 [node name="PresentationEvent" parent="Events" index="0" instance=ExtResource( 3 )]
 script = ExtResource( 4 )
@@ -32,11 +38,5 @@ auto_start = true
 [node name="PortalDialogueEvent" parent="Events" index="1" instance=ExtResource( 3 )]
 script = ExtResource( 5 )
 auto_start = true
-
-[node name="ErbaACaso2" type="Sprite" parent="." index="7"]
-position = Vector2( 455, 170 )
-rotation = -1.65806
-z_index = 1
-texture = ExtResource( 7 )
 
 [connection signal="body_entered" from="Objects/Checkpoint" to="Events/PortalDialogueEvent" method="activate"]

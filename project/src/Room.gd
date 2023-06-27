@@ -8,6 +8,8 @@ onready var rewarder: Node2D = get_node("Objects/StandardReward")
 
 export var closed: bool = false
 
+export var id_room: int 
+
 export var left_room: int = -2
 export var right_room: int = -2
 export var top_room: int = -2
@@ -117,3 +119,17 @@ func set_directions(l, r, t, b):
 	right_room = int(r)
 	top_room = int(t)
 	bottom_room = int(b)
+
+func activatePathFinding(d: int):
+	match d:
+		top_room:
+			$Arrows/TopArrow.show()
+		bottom_room:
+			$Arrows/BottomArrow.show()
+		left_room:
+			$Arrows/LeftArrow.show()
+		right_room:
+			$Arrows/RightArrow.show()
+		-3:
+			pass
+		

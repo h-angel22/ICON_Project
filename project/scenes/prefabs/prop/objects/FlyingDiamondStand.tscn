@@ -6,6 +6,7 @@
 
 [node name="FlyingDiamondStand" instance=ExtResource( 2 )]
 object = ExtResource( 3 )
+object_name = "FlyingDiamond"
 
 [node name="Sprite" parent="Object" index="0"]
 position = Vector2( 5, -90 )

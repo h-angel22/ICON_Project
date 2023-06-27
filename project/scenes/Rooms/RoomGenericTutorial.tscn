@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/room.png" type="Texture" id=4]
+[ext_resource path="res://ICON_src/Arrow.tscn" type="PackedScene" id=5]
 
 [node name="Room" instance=ExtResource( 1 )]
 
@@ -31,6 +32,25 @@ position = Vector2( 15.119, 524.127 )
 scale = Vector2( 1, -1 )
 collision_layer = 8
 collision_mask = 63
+
+[node name="LeftArrow" parent="Arrows" index="0" instance=ExtResource( 5 )]
+visible = false
+rotation = -1.5708
+frame = 0
+
+[node name="RightArrow" parent="Arrows" index="1" instance=ExtResource( 5 )]
+visible = false
+rotation = 1.5708
+frame = 9
+
+[node name="TopArrow" parent="Arrows" index="2" instance=ExtResource( 5 )]
+visible = false
+frame = 7
+
+[node name="BottomArrow" parent="Arrows" index="3" instance=ExtResource( 5 )]
+visible = false
+rotation = 3.14159
+frame = 10
 
 [node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals" index="0"]
 polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539 )

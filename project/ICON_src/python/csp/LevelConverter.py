@@ -9,10 +9,11 @@ def load_file(path, dim):
         arr.append(Room(line))
     file.close()
 
+    rooms_to_use = [ arr[0], arr[1], arr[2] ]
     random.shuffle(arr)
 
-    rooms_to_use = [Room("res://scenes/Rooms/CheckpointRoom.tscn -1 -1 -1 -1"), Room("res://scenes/Rooms/NewBossRoom.tscn -1 -1 -1 -1")]
-    rooms_to_use = rooms_to_use + arr[:dim-2]
+    #rooms_to_use = [Room("CheckpointRoom.tscn -1 -1 -1 -1"), Room("NewBossRoom.tscn -2 -2 -1 -1")]
+    rooms_to_use = rooms_to_use + arr[:dim-3]
     for i in range(0,dim):
         rooms_to_use[i].id = i
 

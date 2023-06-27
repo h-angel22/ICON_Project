@@ -1,9 +1,5 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 const rooms_path = "res://scenes/Rooms/newRooms/"
 const out_path = "res://ICON_src/rooms.txt"
 
@@ -17,7 +13,7 @@ func _ready():
 	for r in all_files:
 		room = load(rooms_path + r)
 		i = room.instance()
-		data += rooms_path + r + " " + str(i.left_room) + " "+ str(i.right_room) + " " + str(i.top_room) + " " + str(i.bottom_room) + "\n"
+		data += r + " " + str(i.left_room) + " "+ str(i.right_room) + " " + str(i.top_room) + " " + str(i.bottom_room) + "\n"
 	
 	data[-1] = ""
 	var file = File.new()

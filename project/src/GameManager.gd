@@ -35,18 +35,21 @@ func _init():
 	#levels.append("res://levels/LvBonus1.tres")
 
 func _generate_level():
-	var level_str = []
-	var exit_code = OS.execute("python3", [py_path], true, level_str)
+	var level_str = [""]
+	while level_str[0] == "":
+		var exit_code = OS.execute("python3", [py_path], true, level_str)
+		print(level_str)
 	var l = Level.new()
 	l.initialize(level_str[0])
 	ResourceSaver.save("user://lvl.tres", l)
+	levels.append("user://lvl.tres")
 	emit_signal("loaded")
+	call_deferred("_load_level",loadlvl)
 
 func _ready():
 	var thread = Thread.new()
 	thread.start(self, "_generate_level")
-	
-	levels.append("user://lvl.tres")
+	#_generate_level()
 	player = player_scene.instance()
 	player.connect("is_dead", self, "_respawn")
 	assistant = assistant_scene.instance()
@@ -60,7 +63,6 @@ func _ready():
 		player.set_hp(player.max_hp)
 		assistant.set_mana(assistant.max_mana)
 	$Camera2D.set_process_input(false)
-	call_deferred("_load_level",loadlvl)
 
 func _input(event):
 	if Input.is_action_just_pressed("pause_toggle"):
@@ -164,7 +166,7 @@ func _load_room(r: int, d):
 		assistant.position = Vector2(-200,20)
 	else:
 		rooms[r].set_player_position(player, assistant, d)
-	if r == boss_room:
+	if r == boss_room:  
 		$Camera2D.current = false
 		_set_boss_music(current_level)
 		rooms[r].get_node("Camera2D").current = true
@@ -285,3 +287,6 @@ func save_name(name: String):
 
 func set_assistant_anim(animation: String):
 	assistant.get_node("Sprite").animation = animation
+
+func get_rooms() -> Array:
+	return rooms

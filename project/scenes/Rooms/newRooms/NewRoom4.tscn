@@ -1,175 +1,65 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/prefabs/mob/Tortoise.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/decorations/liane1.png" type="Texture" id=2]
-[ext_resource path="res://assets/decorations/erba_a_caso_5.png" type="Texture" id=3]
-[ext_resource path="res://assets/decorations/erba_a_caso_3.png" type="Texture" id=4]
-[ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/decorations/liane3.png" type="Texture" id=6]
-[ext_resource path="res://src/Room.gd" type="Script" id=7]
-[ext_resource path="res://scenes/prefabs/traps/BatSpawner.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/prefabs/prop/Poof.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/prefabs/prop/objects/HealtGain.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/prefabs/prop/objects/ManaGain.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/Door.gd" type="Script" id=12]
-[ext_resource path="res://src/MobIA/Tortoise.gd" type="Script" id=13]
-[ext_resource path="res://scenes/prefabs/prop/doors/Door0V.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/prefabs/prop/doors/Door0H.tscn" type="PackedScene" id=15]
-[ext_resource path="res://src/traps/BatSpawner.gd" type="Script" id=16]
-[ext_resource path="res://src/prop/PortalReward.gd" type="Script" id=17]
-[ext_resource path="res://assets/room.png" type="Texture" id=18]
-[ext_resource path="res://scenes/corps/TortoiseCorpse.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/prefabs/traps/Bat.tscn" type="PackedScene" id=20]
-[ext_resource path="res://assets/sprites/tortoise/TortoiseIcon.png" type="Texture" id=21]
+[ext_resource path="res://scenes/prefabs/prop/PortalReward.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/decorations/liane3.png" type="Texture" id=7]
+[ext_resource path="res://assets/decorations/liane1.png" type="Texture" id=9]
+[ext_resource path="res://assets/decorations/erba_a_caso_5.png" type="Texture" id=10]
+[ext_resource path="res://assets/decorations/erba_a_caso_3.png" type="Texture" id=11]
+[ext_resource path="res://scenes/prefabs/traps/BatSpawner.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Rooms/RoomGenericTutorial.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/prefabs/mob/Tortoise.tscn" type="PackedScene" id=17]
 
-[node name="Room" type="Node2D"]
-pause_mode = 1
-script = ExtResource( 7 )
-closed = true
-left_room = 2
-right_room = 4
-top_room = 7
-bottom_room = 2
+[node name="Room" instance=ExtResource( 16 )]
+left_room = -1
+right_room = -1
+bottom_room = -1
 
-[node name="Sprite" type="Sprite" parent="."]
-z_index = -3
-texture = ExtResource( 18 )
+[node name="LeftArrow" parent="Arrows" index="0"]
+frame = 7
 
-[node name="Doors" type="Node2D" parent="."]
+[node name="RightArrow" parent="Arrows" index="1"]
+frame = 5
 
-[node name="Left" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 15 )]
-position = Vector2( -944.941, -10.0794 )
-collision_layer = 8
-collision_mask = 63
-script = ExtResource( 12 )
-is_vertical = false
-is_enabled = false
-offset = 150.0
+[node name="TopArrow" parent="Arrows" index="2"]
+frame = 3
 
-[node name="Right" type="StaticBody2D" parent="Doors" groups=["Environment", "HorizontalEnvironment"] instance=ExtResource( 15 )]
-position = Vector2( 861.786, -12.5992 )
-scale = Vector2( -1, 1 )
-collision_layer = 8
-collision_mask = 63
-script = ExtResource( 12 )
-is_vertical = false
-is_enabled = false
-offset = 150.0
+[node name="BottomArrow" parent="Arrows" index="3"]
+frame = 6
 
-[node name="Top" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 14 )]
-position = Vector2( 12.5992, -526.647 )
-collision_layer = 8
-collision_mask = 63
-script = ExtResource( 12 )
-is_vertical = true
-is_enabled = false
-offset = 150.0
-
-[node name="Bottom" type="StaticBody2D" parent="Doors" groups=["Environment", "VerticalEnvironment"] instance=ExtResource( 14 )]
-position = Vector2( 15.119, 524.127 )
-scale = Vector2( 1, -1 )
-collision_layer = 8
-collision_mask = 63
-script = ExtResource( 12 )
-is_vertical = true
-is_enabled = false
-offset = 150.0
-
-[node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
-
-[node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals"]
-polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539 )
-
-[node name="CollisionDown" type="CollisionPolygon2D" parent="CollisionsVerticals"]
-polygon = PoolVector2Array( -960, 540, -816, 366, -56, 426, -78, 521, 79, 522, 71, 437, 719, 407, 959, 539 )
-
-[node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
-
-[node name="CollisionLeft" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
-polygon = PoolVector2Array( -959, -540, -787, -397, -849, -63, -940, -76, -936, 82, -848, 61, -823, 378, -960, 540 )
-
-[node name="CollisionRight" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
-polygon = PoolVector2Array( 960, -539, 744, -403, 771, -65, 922, -88, 927, 95, 758, 59, 716, 402, 959, 538 )
-
-[node name="Objects" type="YSort" parent="."]
-
-[node name="Tortoise" type="KinematicBody2D" parent="Objects" groups=["Character", "Mob"] instance=ExtResource( 1 )]
+[node name="Tortoise" parent="Objects" index="1" instance=ExtResource( 17 )]
 position = Vector2( 415, 205 )
-collision_layer = 3
-collision_mask = 3
-script = ExtResource( 13 )
-POOF = ExtResource( 9 )
-CORPSE = ExtResource( 19 )
-max_hp = 5
-speed = 1000
-can_fly = false
-automated_hp = true
 flip = false
 contact_damage = 1
-icon = ExtResource( 21 )
 is_summoned = false
-shot_direction = Vector2( -1, 2 )
 
-[node name="PortalReward" type="Node2D" parent="Objects" instance=ExtResource( 5 )]
+[node name="PortalReward" parent="Objects" index="2" instance=ExtResource( 4 )]
 visible = false
 position = Vector2( 585, 302 )
-scale = Vector2( 0.8, 0.8 )
-z_index = -1
-script = ExtResource( 17 )
-healthScene = ExtResource( 10 )
-manaScene = ExtResource( 11 )
-number_of_hearts = 1
 number_of_mana = 2
 
-[node name="BatSpawner" type="Node2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="BatSpawner" parent="Objects" index="3" instance=ExtResource( 13 )]
 position = Vector2( -664, 454 )
-z_index = -1
-script = ExtResource( 16 )
-__meta__ = {
-"_edit_group_": true
-}
-bat = ExtResource( 20 )
-flipx = false
-flipy = false
 active = true
 
-[node name="StandardReward" type="Node2D" parent="Objects" instance=ExtResource( 5 )]
-visible = false
-scale = Vector2( 0.8, 0.8 )
-z_index = -1
-script = ExtResource( 17 )
-healthScene = ExtResource( 10 )
-manaScene = ExtResource( 11 )
-number_of_hearts = 0
-number_of_mana = 0
-
-[node name="Liane1" type="Sprite" parent="."]
+[node name="Liane1" type="Sprite" parent="." index="8"]
 position = Vector2( -627, 449 )
 scale = Vector2( 1, 0.4 )
-texture = ExtResource( 2 )
+texture = ExtResource( 9 )
 flip_v = true
 
-[node name="Liane3" type="Sprite" parent="."]
+[node name="Liane3" type="Sprite" parent="." index="9"]
 position = Vector2( 598, -343 )
 scale = Vector2( 1, 0.8 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="ErbaACaso3" type="Sprite" parent="."]
+[node name="ErbaACaso3" type="Sprite" parent="." index="10"]
 position = Vector2( -171, -291 )
 rotation = 1.5708
 z_index = -1
-texture = ExtResource( 4 )
+texture = ExtResource( 11 )
 
-[node name="ErbaACaso5" type="Sprite" parent="."]
+[node name="ErbaACaso5" type="Sprite" parent="." index="11"]
 position = Vector2( 196, -293 )
 rotation = 1.5708
 z_index = -1
-texture = ExtResource( 3 )
-
-[node name="Events" type="Node" parent="."]
-
-[node name="TimeToCheck" type="Timer" parent="."]
-wait_time = 0.05
-one_shot = true
-
-[connection signal="timeout" from="TimeToCheck" to="." method="_on_TimeToCheck_timeout"]
+texture = ExtResource( 10 )

@@ -5,15 +5,17 @@ export var object: PackedScene
 var has_object: bool = true
 signal object_collected
 
+export var object_name: String
+
 func start():
 	pass
 
 func _on_ObjectStand_body_entered(body):
 	if body.is_in_group("Player") and has_object:
 		remove_object()
-		if is_instance_valid(object) and not body.has_node("FlyingDiamond"):
+		if is_instance_valid(object) and not body.has_node(object_name):
 			body.add_child(object.instance())
-			body.get_node("FlyingDiamond").active = true
+			body.get_node(object_name).active = true
 		emit_signal("object_collected")
 		get_node("/root/AudioManager").add_effect("res://assets/audio/win sound 1-2.wav", 0.0, 1.0, false)
 

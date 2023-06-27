@@ -30,12 +30,11 @@ n = num_archs #9#int((dim*(dim-1))/2)
 for i in range(0,n):
     vars.append(Variable("A"+str(i), arch_domain))
 
-print(rooms_to_use)
-
 constraints = []
 
 constraints.append( Constraint(vars, not_equals, "non possono esserci 2 archi uguali") )
 constraints.append( Constraint(vars, to_boss, "può esserci solo un entrata alla stanza del boss") )
+#constraints.append( Constraint(vars, to_compass, "può esserci solo un entrata alla stanza del tesoro") )
 constraints.append( Constraint(vars, not_mirrors, "non possono esserci archi con valori specchiati") ) # tutti gli archi
 constraints.append( Constraint(vars, not_samecolumn, "non si può ripetere un unumero in una stessa posizione dell'arco")) #tutti gli archi
 constraints.append( Constraint(vars, not_opposite, "non possono esserci archi orizzontali e verticali con gli stessi valori") ) # tutti gli archi

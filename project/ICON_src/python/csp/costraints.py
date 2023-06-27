@@ -195,6 +195,16 @@ def to_boss(*archs):
     cont = 0
     for a in archs:
         for i in a:
+            if (i == 2):
+                cont+=1
+        if cont > 1:
+            break
+    return cont == 1
+
+def to_compass(*archs):
+    cont = 0
+    for a in archs:
+        for i in a:
             if (i == 1):
                 cont+=1
         if cont > 1:
