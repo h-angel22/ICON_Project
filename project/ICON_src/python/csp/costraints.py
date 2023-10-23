@@ -160,11 +160,11 @@ def is_valid(rooms) -> bool:
 
         for a in archs:
             if (a[0] != None):
-                graph[a[0]] = graph[a[0]] + [a[1]]
-                graph[a[1]] = graph[a[1]] + [a[0]]
+                graph[a[0]] += [a[1]]
+                graph[a[1]] += [a[0]]
             elif (a[2] != None):
-                graph[a[2]] = graph[a[2]] + [a[3]]
-                graph[a[3]] = graph[a[3]] + [a[2]]
+                graph[a[2]] += [a[3]]
+                graph[a[3]] += [a[2]]
 
         return is_connected(graph)
 
@@ -175,13 +175,13 @@ def can_connect(rooms):
     def check_bool_rooms(*archs):
         valid = True
         for a in archs:
-            if (a[0] != None):
+            if (a[0] != None and valid):
                 valid = rooms[a[0]].can_right
-            elif (a[1] != None):
+            if (a[1] != None and valid):
                 valid = rooms[a[1]].can_left
-            elif (a[2] != None):
+            if (a[2] != None and valid):
                 valid = rooms[a[2]].can_bottom
-            elif (a[3] != None):
+            if (a[3] != None and valid):
                 valid = rooms[a[3]].can_top
             if (not valid):
                 break

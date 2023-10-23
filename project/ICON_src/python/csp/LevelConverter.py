@@ -10,6 +10,7 @@ def load_file(path, dim):
     file.close()
 
     rooms_to_use = [ arr[0], arr[1], arr[2] ]
+    arr = arr[3:]
     random.shuffle(arr)
 
     #rooms_to_use = [Room("CheckpointRoom.tscn -1 -1 -1 -1"), Room("NewBossRoom.tscn -2 -2 -1 -1")]

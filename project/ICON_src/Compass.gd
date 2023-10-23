@@ -2,7 +2,7 @@ extends Node
 
 onready var parent_room: Room2D = get_parent().get_parent().get_parent()
 onready var level: Array = parent_room.get_parent().get_rooms()
-const py_path = "D:/Progetti/Godot/ICON_Project/project/ICON_src/python/search/mainSearch.py"
+const py_path = "/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/python/search/mainSearch.py"
 
 var current_room: int
 var direction: int

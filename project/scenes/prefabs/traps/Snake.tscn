@@ -29,7 +29,6 @@ extents = Vector2( 53, 63.5 )
 radius = 89.0225
 
 [node name="Snake" type="Area2D"]
-z_index = 1
 script = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

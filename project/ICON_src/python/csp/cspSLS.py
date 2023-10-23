@@ -13,6 +13,8 @@ from searchProblem import Arc, Search_problem
 from display import Displayable
 import random
 import heapq
+import sys
+
 
 class SLSearcher(Displayable):
     """A search problem directly from the CSP..
@@ -60,6 +62,9 @@ class SLSearcher(Displayable):
         else:
             return self.search_with_any_conflict(max_steps, prob_anycon)
 
+    def get_solution(se):
+        return se.current_assignment
+
     def search_with_any_conflict(self, max_steps, prob_anycon=1.0):
         """Searches with the any_conflict heuristic.
         This relies on just maintaining the set of conflicts; 
@@ -90,10 +95,10 @@ class SLSearcher(Displayable):
                 self.display(2,"     Number of conflicts",len(self.conflicts))
             if not self.conflicts:
                 #self.display(1,"Solution found:", self.current_assignment,
-                                 #"in", self.number_of_steps,"steps")
+                #                 "in", self.number_of_steps,"steps")
                 return self.number_of_steps
-        self.display(1,"No solution in",self.number_of_steps,"steps",
-                    len(self.conflicts),"conflicts remain")
+        #self.display(1,"No solution in",self.number_of_steps,"steps",
+        #            len(self.conflicts),"conflicts remain")
         return None
 
     def search_with_var_pq(self,max_steps, prob_best=1.0, prob_anycon=1.0):
@@ -273,7 +278,11 @@ class Runtime_distribution(object):
 def sls_solver(csp,prob_best=0.7):
     """stochastic local searcher (prob_best=0.7)"""
     se0 = SLSearcher(csp)
-    se0.search(1000000,prob_best)
+    solved = None
+    while (solved == None):
+        solved = se0.search(1000000,prob_best)
+        if solved == None:
+          print('Fallito tentativo', file=sys.stderr)  
     return se0.current_assignment
 def any_conflict_solver(csp):
     """stochastic local searcher (any-conflict)"""

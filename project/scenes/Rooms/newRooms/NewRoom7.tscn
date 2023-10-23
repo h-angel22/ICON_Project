@@ -21,18 +21,6 @@ right_room = -1
 top_room = -1
 bottom_room = -1
 
-[node name="LeftArrow" parent="Arrows" index="0"]
-frame = 4
-
-[node name="RightArrow" parent="Arrows" index="1"]
-frame = 2
-
-[node name="TopArrow" parent="Arrows" index="2"]
-frame = 0
-
-[node name="BottomArrow" parent="Arrows" index="3"]
-frame = 3
-
 [node name="Drake" parent="Objects" index="1" instance=ExtResource( 13 )]
 position = Vector2( -635, -30 )
 

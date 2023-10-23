@@ -14,18 +14,6 @@ right_room = -1
 top_room = -1
 bottom_room = -1
 
-[node name="LeftArrow" parent="Arrows" index="0"]
-frame = 3
-
-[node name="RightArrow" parent="Arrows" index="1"]
-frame = 1
-
-[node name="TopArrow" parent="Arrows" index="2"]
-frame = 10
-
-[node name="BottomArrow" parent="Arrows" index="3"]
-frame = 2
-
 [node name="crepa2" type="StaticBody2D" parent="Objects" index="1" groups=["Environment", "Hole", "IgnoreRaycast"]]
 position = Vector2( -590, 201 )
 rotation = 3.14159

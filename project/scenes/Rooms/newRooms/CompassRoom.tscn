@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/prefabs/prop/objects/CompassStand.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/prefabs/prop/decorations/Column.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/decorations/erba_a_caso.png" type="Texture" id=8]
 [ext_resource path="res://assets/decorations/crepa1.png" type="Texture" id=9]
 [ext_resource path="res://assets/decorations/crepa2.png" type="Texture" id=10]
+[ext_resource path="res://scenes/prefabs/prop/portals/Checkpoint.tscn" type="PackedScene" id=11]
 
 [node name="Room" instance=ExtResource( 3 )]
 left_room = -1
@@ -18,16 +19,16 @@ top_room = -1
 bottom_room = -1
 
 [node name="LeftArrow" parent="Arrows" index="0"]
-frame = 5
+frame = 10
 
 [node name="RightArrow" parent="Arrows" index="1"]
-frame = 3
+frame = 8
 
 [node name="TopArrow" parent="Arrows" index="2"]
-frame = 1
+frame = 6
 
 [node name="BottomArrow" parent="Arrows" index="3"]
-frame = 4
+frame = 9
 
 [node name="CompassStand" parent="Objects" index="1" instance=ExtResource( 1 )]
 
@@ -104,6 +105,9 @@ texture = ExtResource( 9 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/crepa5" index="1"]
 position = Vector2( -712, 179 )
 polygon = PoolVector2Array( 671, -223, 689, -239, 700, -258, 759, -271, 781, -271, 770, -252, 765, -239, 784, -235, 786, -216, 803, -208, 795, -181, 765, -182, 746, -152, 714, -158, 698, -185, 678, -181 )
+
+[node name="Checkpoint" parent="Objects" index="9" instance=ExtResource( 11 )]
+position = Vector2( -606, -251 )
 
 [node name="ErbaACaso" type="Sprite" parent="." index="8"]
 position = Vector2( -755.965, 219.745 )

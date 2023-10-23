@@ -2,6 +2,7 @@ CheckpointRoom.tscn -1 -1 -1 -1
 CompassRoom.tscn -1 -1 -1 -1
 NewBossRoom.tscn -2 -2 -1 -1
 NewRoom1.tscn -1 -2 -2 -1
+NewRoom10.tscn -1 -1 -2 -1
 NewRoom2.tscn -1 -1 -1 -1
 NewRoom3.tscn -2 -1 -1 -1
 NewRoom4.tscn -1 -1 -2 -1

@@ -1,6 +1,6 @@
 extends Node
 
-const py_path = "D:/Progetti/Godot/ICON_Project/project/ICON_src/python/csp/mainTest.py"
+const py_path = "/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/python/csp/mainTest.py"
 
 export(PackedScene) var player_scene
 export(PackedScene) var assistant_scene

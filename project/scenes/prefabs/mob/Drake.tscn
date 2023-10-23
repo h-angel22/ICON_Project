@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/prefabs/prop/Shadow.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/MobIA/Taz.gd" type="Script" id=8]
 [ext_resource path="res://scenes/corps/DrakeCorpse.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/sprites/taz/tazIcon.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/drake/DrakeIcon.png" type="Texture" id=10]
 [ext_resource path="res://src/utility/TriggerAttack.gd" type="Script" id=11]
 [ext_resource path="res://src/utility/Hitbox.gd" type="Script" id=12]
 [ext_resource path="res://assets/sprites/drake/arrabbiato2.png" type="Texture" id=13]
@@ -121,6 +121,7 @@ position = Vector2( -10.041, -137.724 )
 scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 14 )
 animation = "spin"
+frame = 6
 playing = true
 
 [node name="FallenMode" type="Sprite" parent="." index="3"]

@@ -7,7 +7,7 @@ from costraints import *
 dim = 8
 num_archs = 10
 
-rooms_to_use = load_file("D:/Progetti/Godot/ICON_Project/project/ICON_src/rooms.txt", dim)
+rooms_to_use = load_file("/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/rooms.txt", dim)
 
 #variabili
 vars = []

@@ -11,12 +11,33 @@ export(Array, PackedScene) var rooms
 const original_path = "res://scenes/Rooms/newRooms/"
 const rooms_path = "user://rooms/"
 
+var officialRooms = []
+class tempRoom:
+	var left: int
+	var right: int
+	var top: int
+	var bottom: int
+	var position: Vector2
+	
+	func _init(l, r, t, b):
+		left = int(l)
+		right = int(r)
+		top = int(t)
+		bottom = int(b)
+
+
 func initialize(description: String):
 	var rooms_str = description.split("\n", false)
-	print(rooms_str)
 
 	var r_str
 	var r_load
+	for rs in rooms_str:
+		r_str = rs.split(" ", false)
+		officialRooms.append(tempRoom.new(r_str[1], r_str[2], r_str[3], r_str[4]))
+
+	officialRooms[0].position = Vector2(0,0)
+	print(officialRooms)
+
 	var r_inst
 	var i = 0
 	for rs in rooms_str:
@@ -30,6 +51,7 @@ func initialize(description: String):
 		ResourceSaver.save(rooms_path + r_str[0], save)
 		i+= 1
 		rooms.append(load(rooms_path + r_str[0]))
+		#rooms.append(r_inst)
 
 	start_room = 0
 	boss_room = 2

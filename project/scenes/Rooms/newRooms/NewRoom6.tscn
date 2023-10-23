@@ -3,12 +3,12 @@
 [ext_resource path="res://scenes/prefabs/prop/decorations/Eye.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/prefabs/prop/FluidBucketPink.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/prefabs/prop/FluidBucketGreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/prefabs/prop/decorations/AngleTablePrimitive.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/prefabs/prop/LeverVariant.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/decorations/library.png" type="Texture" id=6]
 [ext_resource path="res://src/prop/Levers/LeverLine.gd" type="Script" id=7]
 [ext_resource path="res://scenes/prefabs/prop/SinkVariant.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/prefabs/mob/Beholder.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/decorations/scrivania_rudimentale.png" type="Texture" id=10]
 [ext_resource path="res://assets/decorations/scrivania_rudimentale2.png" type="Texture" id=11]
 [ext_resource path="res://scenes/Rooms/RoomGenericTutorial.tscn" type="PackedScene" id=14]
 
@@ -19,48 +19,18 @@ top_room = -1
 bottom_room = -1
 
 [node name="LeftArrow" parent="Arrows" index="0"]
-frame = 4
-
-[node name="RightArrow" parent="Arrows" index="1"]
 frame = 2
 
-[node name="TopArrow" parent="Arrows" index="2"]
+[node name="RightArrow" parent="Arrows" index="1"]
 frame = 0
 
+[node name="TopArrow" parent="Arrows" index="2"]
+frame = 9
+
 [node name="BottomArrow" parent="Arrows" index="3"]
-frame = 3
+frame = 1
 
-[node name="Obstacle1" type="Sprite" parent="Objects" index="1"]
-position = Vector2( 537, -182 )
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 10 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionVertivals" type="StaticBody2D" parent="Objects/Obstacle1" index="0" groups=["Environment", "VerticalEnvironment"]]
-scale = Vector2( 0.6, 0.6 )
-
-[node name="Top" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionVertivals" index="0"]
-polygon = PoolVector2Array( -314.583, -104.167, -293.75, -166.667, -204.167, -195.833, 27.0831, -185.417, 258.333, -127.083, 310.417, -64.5833 )
-
-[node name="Bottom" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionVertivals" index="1"]
-polygon = PoolVector2Array( 31.2499, 237.5, 118.75, 312.5, 222.917, 310.417, 310.417, 289.583, 354.167, 260.417, 366.667, 158.333, 99.9999, 160.417, 60.4165, 200 )
-
-[node name="Bottom2" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionVertivals" index="2"]
-polygon = PoolVector2Array( -58.3335, 72.9167, -22.9169, 64.5834, 22.9165, 58.3334, 27.0831, 35.4167, 56.2499, -4.16663, -66.6669, -39.5833, -227.083, -39.5833, -191.667, 62.5 )
-
-[node name="CollisionHorizontals" type="StaticBody2D" parent="Objects/Obstacle1" index="1" groups=["Environment", "HorizontalEnvironment"]]
-scale = Vector2( 0.6, 0.6 )
-
-[node name="Left" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionHorizontals" index="0"]
-polygon = PoolVector2Array( -320.833, -47.9166, -331.25, -127.083, -287.5, -168.75, -254.167, -104.167, -197.917, 64.5834, -310.417, 8.33337 )
-
-[node name="Left2" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionHorizontals" index="1"]
-polygon = PoolVector2Array( -45.8335, 64.5834, 49.9999, 56.25, 89.5831, 75, 110.417, 158.333, 45.8331, 233.333, -6.25012, 118.75 )
-
-[node name="Right" type="CollisionPolygon2D" parent="Objects/Obstacle1/CollisionHorizontals" index="2"]
-polygon = PoolVector2Array( 308.333, -70.8333, 360.417, 147.917, 239.583, 164.583, 218.75, -81.25 )
+[node name="AngleTablePrimitive" parent="Objects" index="1" instance=ExtResource( 4 )]
 
 [node name="LeverGreen" parent="Objects" index="2" instance=ExtResource( 5 )]
 position = Vector2( -583, -96 )

@@ -13,16 +13,16 @@ left_room = -1
 bottom_room = -1
 
 [node name="LeftArrow" parent="Arrows" index="0"]
-frame = 5
+frame = 9
 
 [node name="RightArrow" parent="Arrows" index="1"]
-frame = 3
+frame = 7
 
 [node name="TopArrow" parent="Arrows" index="2"]
-frame = 1
+frame = 5
 
 [node name="BottomArrow" parent="Arrows" index="3"]
-frame = 4
+frame = 8
 
 [node name="Column" parent="Objects" index="1" instance=ExtResource( 4 )]
 position = Vector2( -493, 250 )
