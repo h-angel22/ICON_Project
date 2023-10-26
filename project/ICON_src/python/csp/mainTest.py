@@ -35,7 +35,7 @@ while solution == None:
 
     constraints = []
 
-    rooms_to_use = load_file("/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/rooms.txt", dim)
+    rooms_to_use = load_file("project/ICON_src/rooms.txt", dim)
 
     constraints.append( Constraint(vars, not_equals, "non possono esserci 2 archi uguali") )
     constraints.append( Constraint(vars, to_boss, "può esserci solo un entrata alla stanza del boss") )
@@ -47,7 +47,7 @@ while solution == None:
     
     constraints.append( Constraint(vars, all_used(rooms_to_use), "verifica che usi tutte le stanze") )
     constraints.append( Constraint(vars, is_valid(rooms_to_use), "deve risultare un grafo collegato") )
-    #constraints.append( Constraint(vars, ) )
+    constraints.append( Constraint(vars, not_overlay(rooms_to_use), "le stanze non si possono sovrapporre") )
 
     csp = CSP("stanze", vars, constraints)
     #dfs_solve1(csp,vars)

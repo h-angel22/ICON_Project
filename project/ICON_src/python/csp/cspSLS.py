@@ -289,7 +289,7 @@ class Runtime_distribution(object):
 def sls_solver(csp,prob_best=0.7):
     se0 = SLSearcher(csp)
     solved = None
-    solved = se0.search(200000,prob_best)
+    solved = se0.search(100000,prob_best)
     if solved == None:
         return None
     return se0.current_assignment

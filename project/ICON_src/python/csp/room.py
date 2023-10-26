@@ -29,7 +29,9 @@ class Room(object):
 
 def archs_to_rooms(rooms: 'list[Room]', archs: dict):
     archs = archs.values()
+    archs_to_rooms
 
+def archs_to_rooms(rooms: 'list[Room]', archs: list):
     ar_hor = []
     ar_ver = []
     for a in archs:

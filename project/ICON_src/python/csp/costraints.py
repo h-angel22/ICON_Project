@@ -225,7 +225,9 @@ def not_overlay(rooms):
         archs_to_rooms(rooms, archs)
         
         #roomCounters = new int[rooms.length];
-        officialRooms = {}#new mapCoor[rooms.length];
+        officialRooms = []#new mapCoor[rooms.length];
+        for r in rooms:
+            officialRooms.append(None)
         valid = True
         
         officialRooms[0] = (0, 0)#new mapCoor(5,5);
@@ -261,10 +263,10 @@ def developStack(ramains, rooms, officialRooms):
     todo = []
     valid = True
     
-    if ramains.empty():
+    if ramains == []:
       return True
     
-    while not ramains.empty() and valid:
+    while not ramains != [] and valid:
       r = ramains.pop()
       if (officialRooms[r.id] == None):
         todo.push(r)
