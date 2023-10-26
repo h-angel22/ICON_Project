@@ -1,7 +1,25 @@
 from collections import deque
 
+from room import archs_to_rooms
+
 def confront_quadruplet(quad):
     return tuple((float('inf') if x is None else x for x in quad))
+
+def generate_graph(nodes, archs):
+    graph = {}
+
+    for r in nodes:
+        graph[r.id] = []
+
+    for a in archs:
+        if (a[0] != None):
+            graph[a[0]] += [a[1]]
+            graph[a[1]] += [a[0]]
+        elif (a[2] != None):
+            graph[a[2]] += [a[3]]
+            graph[a[3]] += [a[2]]
+            
+    return graph
 
 #"non possono esserci 2 archi uguali"
 def not_equals(*archs) -> bool:
@@ -153,18 +171,7 @@ def is_connected(graph):
 def is_valid(rooms) -> bool:
     
     def connected(*archs):
-        graph = {}
-
-        for r in rooms:
-            graph[r.id] = []
-
-        for a in archs:
-            if (a[0] != None):
-                graph[a[0]] += [a[1]]
-                graph[a[1]] += [a[0]]
-            elif (a[2] != None):
-                graph[a[2]] += [a[3]]
-                graph[a[3]] += [a[2]]
+        graph = generate_graph(rooms, archs)
 
         return is_connected(graph)
 
@@ -210,6 +217,75 @@ def to_compass(*archs):
         if cont > 1:
             break
     return cont == 1
+
+
+def not_overlay(rooms):
+    
+    def develop_level(*archs):
+        archs_to_rooms(rooms, archs)
+        
+        #roomCounters = new int[rooms.length];
+        officialRooms = {}#new mapCoor[rooms.length];
+        valid = True
+        
+        officialRooms[0] = (0, 0)#new mapCoor(5,5);
+        #roomCounters[0]++; 
+        #coorCounter[5][5]++; 
+        valid = addRoom(rooms[0].left, -1, 0, officialRooms)
+        valid = valid and addRoom(rooms[0].right, 1, 0, officialRooms)
+        valid = valid and addRoom(rooms[0].top, 0, -1, officialRooms) 
+        valid = valid and addRoom(rooms[0].bottom, 0, 1, officialRooms) 
+        
+        stack = []
+        for r in rooms[1:]:
+            stack.append(r)
+        
+        valid = valid and developStack(stack, rooms, officialRooms)
+        
+        return valid
+    
+    develop_level.__name__ = "level_builder"
+    return develop_level
+
+
+def addRoom(r, x, y, officialRooms):
+    if (r < 0):
+      return True
+    if (officialRooms[r] == None):
+      officialRooms[r] = (x,y)
+      return True
+    else:
+        return False
+
+def developStack(ramains, rooms, officialRooms):
+    todo = []
+    valid = True
+    
+    if ramains.empty():
+      return True
+    
+    while not ramains.empty() and valid:
+      r = ramains.pop()
+      if (officialRooms[r.id] == None):
+        todo.push(r)
+      else:
+        valid = developRoom(r, rooms, officialRooms)
+
+    return valid and developStack(todo, rooms, officialRooms)
+    
+
+def developRoom(r, rooms, officialRooms):
+    valid = True
+    
+    x = officialRooms[r.id][0]
+    y = officialRooms[r.id][1]
+    
+    valid = addRoom(rooms[r.id].left, x-1, y, officialRooms)
+    valid = valid and addRoom(rooms[r.id].right, x+1, y, officialRooms)
+    valid = valid and addRoom(rooms[r.id].top, x, y-1, officialRooms)
+    valid = valid and addRoom(rooms[r.id].bottom, x, y+1, officialRooms)
+    
+    return valid
 
 #test
 """
