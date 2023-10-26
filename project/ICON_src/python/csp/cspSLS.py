@@ -275,15 +275,25 @@ class Runtime_distribution(object):
         #plt.draw()
         SLSearcher.max_display_level= temp_mdl  #restore display
 
+
+#def sls_solver(csp,prob_best=0.7):
+#    """stochastic local searcher (prob_best=0.7)"""
+#    se0 = SLSearcher(csp)
+#    solved = None
+#    while (solved == None):
+#        solved = se0.search(1000000,prob_best)
+#        if solved == None:
+#          print('Fallito tentativo', file=sys.stderr)  
+#    return se0.current_assignment
+
 def sls_solver(csp,prob_best=0.7):
-    """stochastic local searcher (prob_best=0.7)"""
     se0 = SLSearcher(csp)
     solved = None
-    while (solved == None):
-        solved = se0.search(1000000,prob_best)
-        if solved == None:
-          print('Fallito tentativo', file=sys.stderr)  
+    solved = se0.search(200000,prob_best)
+    if solved == None:
+        return None
     return se0.current_assignment
+
 def any_conflict_solver(csp):
     """stochastic local searcher (any-conflict)"""
     return sls_solver(csp,0)
