@@ -223,14 +223,13 @@ def not_overlay(rooms):
     
     def develop_level(*archs):
         archs_to_rooms(rooms, archs)
-        
-        #roomCounters = new int[rooms.length];
-        officialRooms = []#new mapCoor[rooms.length];
+
+        officialRooms = []
         for r in rooms:
             officialRooms.append(None)
         valid = True
         
-        officialRooms[0] = (0, 0)#new mapCoor(5,5);
+        officialRooms[0] = (0, 0)
         #roomCounters[0]++; 
         #coorCounter[5][5]++; 
         valid = addRoom(rooms[0].left, -1, 0, officialRooms)
@@ -243,6 +242,12 @@ def not_overlay(rooms):
             stack.append(r)
         
         valid = valid and developStack(stack, rooms, officialRooms)
+        
+        if valid and not (None in officialRooms):
+            print(officialRooms)
+            for i in range(0, len(rooms)):
+                if officialRooms[i] != None:
+                    rooms[i].set_coordinates(officialRooms[i][0], officialRooms[i][1])
         
         return valid
     
@@ -263,15 +268,16 @@ def developStack(ramains, rooms, officialRooms):
     todo = []
     valid = True
     
-    if ramains == []:
+    if len(ramains) == 0:
       return True
     
-    while not ramains != [] and valid:
-      r = ramains.pop()
-      if (officialRooms[r.id] == None):
-        todo.push(r)
-      else:
-        valid = developRoom(r, rooms, officialRooms)
+    #print(ramains)
+    while len(ramains) != 0 and valid:
+        r = ramains.pop()
+        if (officialRooms[r.id] == None):
+            todo.append(r)
+        else:
+            valid = developRoom(r, rooms, officialRooms)
 
     return valid and developStack(todo, rooms, officialRooms)
     
