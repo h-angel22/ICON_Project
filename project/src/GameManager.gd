@@ -21,6 +21,7 @@ var boss_room
 export var loadlvl = 0
 
 var rooms: Array
+var coordinates: Array
 var current_room: int
 var current_level: int
 
@@ -117,9 +118,11 @@ func _load_level(l: int):
 
 	var room_scenes = currentLevel.get_rooms()
 	for rs in room_scenes:
-		rooms.append(rs.instance())
-	for i in rooms.size():
-		rooms[i].pos = MapPosition.new(l, i, Vector2(0,0))
+		var temp: Room2D = rs.instance()
+		rooms.append(temp)
+		coordinates.append(temp.map_position)
+	#for i in rooms.size():
+	#	rooms[i].pos = MapPosition.new(l, i, Vector2(0,0))
 
 	var start = currentLevel.get_first_room()
 	boss_room = currentLevel.get_boss_room()
@@ -290,3 +293,6 @@ func set_assistant_anim(animation: String):
 
 func get_rooms() -> Array:
 	return rooms
+
+func validate_coordinate(coor: Vector2) -> bool:
+	return coordinates.has(coor)

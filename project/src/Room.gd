@@ -15,7 +15,8 @@ export var right_room: int = -2
 export var top_room: int = -2
 export var bottom_room: int = -2
 
-var pos: MapPosition
+#var pos: MapPosition = MapPosition.new()
+export var map_position: Vector2
 
 var doors
 
@@ -75,6 +76,26 @@ func enable_doors():
 
 func _enable_door(i: int, room):
 	if _is_valid_room(room):
+		var next_room: Vector2
+		
+		match i:
+			LEFT:
+				next_room.x = map_position.x - 1
+				next_room.y = map_position.y
+			RIGHT:
+				next_room.x = map_position.x + 1
+				next_room.y = map_position.y
+			TOP:
+				next_room.x = map_position.x
+				next_room.y = map_position.y - 1
+			BOTTOM:
+				next_room.x = map_position.x
+				next_room.y = map_position.y + 1
+
+		if room >= 0 and not get_parent().validate_coordinate(next_room):
+			doors[i].get_node("CollisionShape2D").disabled = true
+			doors[i] = doors[i].get_node("Portal")
+
 		doors[i].enable(room)
 		doors[i].connect("entered", self, "_on_player_exit", [i])
 
@@ -133,3 +154,9 @@ func activatePathFinding(d: int):
 		-3:
 			pass
 		
+
+func set_id(id):
+	id_room = id
+
+func set_map_position(pos: Vector2):
+	map_position = pos

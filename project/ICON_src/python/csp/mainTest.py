@@ -31,6 +31,7 @@ for i in range(0,n):
 
 solution = None
 
+
 while solution == None:
 
     constraints = []
@@ -47,7 +48,7 @@ while solution == None:
     
     constraints.append( Constraint(vars, all_used(rooms_to_use), "verifica che usi tutte le stanze") )
     constraints.append( Constraint(vars, is_valid(rooms_to_use), "deve risultare un grafo collegato") )
-    constraints.append( Constraint(vars, not_overlay(rooms_to_use), "le stanze non si possono sovrapporre") )
+    #constraints.append( Constraint(vars, not_overlay(rooms_to_use), "le stanze non si possono sovrapporre") )
 
     csp = CSP("stanze", vars, constraints)
     #dfs_solve1(csp,vars)
@@ -55,12 +56,16 @@ while solution == None:
     if solution == None:
         print('Fallito tentativo', file=sys.stderr)  
 
+#print(develop_level(rooms_to_use))
 
 
-#archs_to_rooms(rooms_to_use, solution)
+archs_to_rooms(rooms_to_use, solution)
 
 
 
 save_file("out_rooms.txt", rooms_to_use)
 
 #print(solution)
+
+
+#print("CheckpointRoom.tscn -1 -1 -1 4\nCompassRoom.tscn 4 7 3 -1\nNewBossRoom.tscn -2 -2 5 -1\nNewRoom3.tscn -2 5 6 1\nNewRoom2.tscn 7 1 0 6\nNewRoom10.tscn 3 -1 -2 2\nNewRoom7.tscn -1 -1 4 3\nNewRoom8.tscn 1 4 -1 -1")

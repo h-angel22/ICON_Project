@@ -219,81 +219,111 @@ def to_compass(*archs):
     return cont == 1
 
 
-def not_overlay(rooms):
+#def not_overlay(rooms):
     
-    def develop_level(*archs):
-        archs_to_rooms(rooms, archs)
-
-        officialRooms = []
-        for r in rooms:
-            officialRooms.append(None)
-        valid = True
-        
-        officialRooms[0] = (0, 0)
-        #roomCounters[0]++; 
-        #coorCounter[5][5]++; 
-        valid = addRoom(rooms[0].left, -1, 0, officialRooms)
-        valid = valid and addRoom(rooms[0].right, 1, 0, officialRooms)
-        valid = valid and addRoom(rooms[0].top, 0, -1, officialRooms) 
-        valid = valid and addRoom(rooms[0].bottom, 0, 1, officialRooms) 
-        
-        stack = []
-        for r in rooms[1:]:
-            stack.append(r)
-        
-        valid = valid and developStack(stack, rooms, officialRooms)
-        
-        if valid and not (None in officialRooms):
-            print(officialRooms)
-            for i in range(0, len(rooms)):
-                if officialRooms[i] != None:
-                    rooms[i].set_coordinates(officialRooms[i][0], officialRooms[i][1])
-        
-        return valid
+    #develop leve
     
-    develop_level.__name__ = "level_builder"
-    return develop_level
+#    develop_level.__name__ = "level_builder"
+#    return develop_level
+def develop_level(rooms): #(*archs):
+    #func = is_valid(rooms)
+    #all = func(*archs)
+    #if not all:
+    #    return False
+    
+    #archs_to_rooms(rooms, archs)
 
+    officialRooms = []
+    for r in rooms:
+        officialRooms.append(None)
+    #valid = True
+    
+    officialRooms[0] = (0, 0)
+    #roomCounters[0]++; 
+    #coorCounter[5][5]++; 
+    addRoom(rooms[0].left, -1, 0, officialRooms)
+    addRoom(rooms[0].right, 1, 0, officialRooms)
+    addRoom(rooms[0].top, 0, -1, officialRooms) 
+    addRoom(rooms[0].bottom, 0, 1, officialRooms) 
+    
+    stack = []
+    for r in rooms[1:]:
+        stack.append(r)
+    
+    developStack(stack, rooms, officialRooms)
+    
+    #if not (None in officialRooms):
+        #print(officialRooms)
+    #for i in range(0, len(rooms)):
+        #if officialRooms[i] != None:
+            #rooms[i].set_coordinates(officialRooms[i][0], officialRooms[i][1])
+    
+    #return valid
 
 def addRoom(r, x, y, officialRooms):
     if (r < 0):
-      return True
+        return True
     if (officialRooms[r] == None):
-      officialRooms[r] = (x,y)
-      return True
+        officialRooms[r] = (x,y)
+        r.set_coordinates(x,y)
+        return True
+    #if (officialRooms[r][0] == x and officialRooms[r][1] == y):
+    #    return True
     else:
         return False
 
-def developStack(ramains, rooms, officialRooms):
-    todo = []
-    valid = True
+def developStack(remains, rooms, officialRooms):
+    #valid = True
     
-    if len(ramains) == 0:
-      return True
-    
-    #print(ramains)
-    while len(ramains) != 0 and valid:
-        r = ramains.pop()
-        if (officialRooms[r.id] == None):
-            todo.append(r)
-        else:
-            valid = developRoom(r, rooms, officialRooms)
+    prev_len = len(remains) + 1
+    while len(remains) != 0:
+        if len(remains) == prev_len:
+            return False
 
-    return valid and developStack(todo, rooms, officialRooms)
+        i = 0
+        while i < len(remains):
+            prev_len = len(remains)
+            r = remains[i]
+            if (officialRooms[r.id] != None):
+                developRoom(r, rooms, officialRooms)
+                #print(valid)
+                #if not valid:
+                #    return False
+                remains.remove(r)
+            else:
+                i = i + 1
+
+    #todo = []
+    
+    #if len(ramains) == 0:
+    #    return True
+
+    #while len(ramains) != 0 and valid:
+    #    r = ramains.pop()
+    #    if (officialRooms[r.id] == None):
+    #        todo.append(r)
+    #    else:
+    #        valid = developRoom(r, rooms, officialRooms)
+
+    #if (valid):
+    #    return developStack(todo, rooms, officialRooms)
+
+    #print(valid)
+    return True
     
 
 def developRoom(r, rooms, officialRooms):
-    valid = True
+    #valid = True
     
     x = officialRooms[r.id][0]
     y = officialRooms[r.id][1]
     
-    valid = addRoom(rooms[r.id].left, x-1, y, officialRooms)
-    valid = valid and addRoom(rooms[r.id].right, x+1, y, officialRooms)
-    valid = valid and addRoom(rooms[r.id].top, x, y-1, officialRooms)
-    valid = valid and addRoom(rooms[r.id].bottom, x, y+1, officialRooms)
+    addRoom(rooms[r.id].left, x-1, y, officialRooms)
+    addRoom(rooms[r.id].right, x+1, y, officialRooms)
+    addRoom(rooms[r.id].top, x, y-1, officialRooms)
+    addRoom(rooms[r.id].bottom, x, y+1, officialRooms)
     
-    return valid
+    #return valid
 
 #test
 """

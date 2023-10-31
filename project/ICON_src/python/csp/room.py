@@ -17,9 +17,6 @@ class Room(object):
         self.top = self.nums[2]
         self.bottom = self.nums[3]
         
-        self.x = None
-        self.y = None
-        
         self.id = -1
 
     def reset_doors(self):
@@ -28,27 +25,29 @@ class Room(object):
         self.top = self.nums[2]
         self.bottom = self.nums[3]
     
-    def set_coordinates(self, coor):
-        self.x = coor[0]
-        self.y = coor[1]
+    #def set_coordinates(self, coor):
+    #    self.x = coor[0]
+    #    self.y = coor[1]
     
     def set_coordinates(self, x, y):
+        print("ciao")
         self.x = x
         self.y = y
 
     # stampa quando richiamo il singolo elemento
     def __str__(self) -> str:
-        return f"{self.name} {self.left} {self.right} {self.top} {self.bottom} {self.x} {self.y}"
+        return f"{self.name} {self.left} {self.right} {self.top} {self.bottom}"
     
     # stampa quando richiamo la lista degli elementi Room
     def __repr__(self) -> str:
         return f"\n<{self.name} - id {self.id}:\t{self.can_left}\t{self.can_right}\t{self.can_top}\t{self.can_bottom}>"
 
 def archs_to_rooms(rooms: 'list[Room]', archs: dict):
-    archs_list = archs.values()
-    archs_to_rooms(rooms, archs_list)
+    archs = archs.values()
+#   archs_list = archs.values()
+#   archs_to_rooms(rooms, archs_list)
 
-def archs_to_rooms(rooms: 'list[Room]', archs: list):
+#def archs_to_rooms(rooms: 'list[Room]', archs: list):
     for r in rooms:
         r.reset_doors()
     
