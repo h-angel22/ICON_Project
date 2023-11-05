@@ -18,7 +18,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 27.2127
 
-[node name="Bat" type="Area2D"]
+[node name="Bat" type="Area2D" groups=["Projectile"]]
 script = ExtResource( 5 )
 speed = 500
 POOF = ExtResource( 6 )
@@ -28,7 +28,6 @@ rotation = 1.5708
 scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 1 )
 animation = "run"
-frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

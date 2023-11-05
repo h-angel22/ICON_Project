@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/pong/salto2.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/sprites/pong/mobattacca.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/pong/mobicaughtyou.png" type="Texture" id=6]
 [ext_resource path="res://src/boss/Pong.gd" type="Script" id=7]
+[ext_resource path="res://ICON_src/Sensors.gd" type="Script" id=8]
 [ext_resource path="res://src/utility/Hitbox.gd" type="Script" id=9]
 [ext_resource path="res://scenes/prefabs/prop/shots/FireSpit.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/prefabs/prop/shots/Earthquake.tscn" type="PackedScene" id=11]
@@ -38,22 +39,17 @@ shader_param/flash_modifier = 0.0
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "spit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": " idle",
+"loop": false,
+"name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ) ],
 "loop": false,
 "name": "jump_down",
 "speed": 6.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": false,
 "name": "jump_up",
 "speed": 6.0
@@ -62,10 +58,23 @@ animations = [ {
 "loop": false,
 "name": "jumping",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "sit_up",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "spit",
+"speed": 1.0
 } ]
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 141.391
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 137.5, 908.5 )
 
 [node name="Pong" groups=["Boss", "IgnorePortal"] instance=ExtResource( 1 )]
 script = ExtResource( 7 )
@@ -90,7 +99,7 @@ shape = SubResource( 2 )
 material = SubResource( 8 )
 position = Vector2( 41.127, -208 )
 frames = SubResource( 3 )
-animation = " idle"
+animation = "idle"
 playing = true
 
 [node name="Cooldown" parent="." index="3"]
@@ -112,6 +121,33 @@ scale = Vector2( 0.943355, 0.731231 )
 
 [node name="Position2D" type="Position2D" parent="." index="7"]
 position = Vector2( -104, -73 )
+
+[node name="Sensors" type="Node2D" parent="." index="9"]
+script = ExtResource( 8 )
+
+[node name="RayCastLeft" type="RayCast2D" parent="Sensors" index="0"]
+enabled = true
+cast_to = Vector2( -2600, 0 )
+
+[node name="RayCastRight" type="RayCast2D" parent="Sensors" index="1"]
+enabled = true
+cast_to = Vector2( 2600, 0 )
+
+[node name="RayCastTop" type="RayCast2D" parent="Sensors" index="2"]
+enabled = true
+cast_to = Vector2( 0, -1500 )
+
+[node name="RayCastBottom" type="RayCast2D" parent="Sensors" index="3"]
+enabled = true
+cast_to = Vector2( 0, 1500 )
+
+[node name="Detector" type="Area2D" parent="Sensors" index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/Detector" index="0"]
+position = Vector2( 8.5, 801.5 )
+shape = SubResource( 9 )
+
+[node name="TargetPosition" type="Position2D" parent="Sensors" index="5"]
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

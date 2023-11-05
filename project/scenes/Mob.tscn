@@ -5,6 +5,10 @@
 
 [node name="Mob" groups=["Mob"] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+flip = false
+contact_damage = 1
+icon = null
+is_summoned = false
 
 [node name="BodyChecker" type="Area2D" parent="." index="1"]
 

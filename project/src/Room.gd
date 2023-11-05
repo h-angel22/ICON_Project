@@ -153,7 +153,6 @@ func activatePathFinding(d: int):
 			$Arrows/RightArrow.show()
 		-3:
 			pass
-		
 
 func set_id(id):
 	id_room = id

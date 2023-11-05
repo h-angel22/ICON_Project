@@ -5,7 +5,7 @@ export var landing_damage = 7
 export var spit: PackedScene
 export var earthquake: PackedScene
 
-enum {normal, jumping, out_of_screen, landing, shooting_left, shooting_right}
+enum {normal, jumping, out_of_screen, landing, shooting_left, shooting_right, dashing_left, dashing_right}
 var jumping_state = normal
 
 var sprite_offset
@@ -15,7 +15,8 @@ var player
 func _ready():
 	original_contact_damage = contact_damage
 	sprite_offset = $AnimatedSprite.position.y
-	player = get_parent().get_parent().get_parent().player
+	#player = get_parent().get_parent().get_parent().player
+	player = get_parent().get_node("Player")
 	$Cooldown.start()
 
 func _physics_process(delta):
@@ -35,11 +36,19 @@ func take_damage(damage):
 	if jumping_state != out_of_screen:
 		.take_damage(damage)
 
-var spit_dir = -1
+var prev_dir = shooting_left
 func _spit():
+	var spit_dir
 	if jumping_state == shooting_right:
-		spit_dir *= -1
-		scale.x *= -1
+		spit_dir = 1
+		if prev_dir == shooting_left:
+			scale.x = -1
+		prev_dir = shooting_right
+	else:
+		spit_dir = -1
+		if prev_dir == shooting_right:
+			scale.x = -1
+		prev_dir = shooting_left
 	$AnimatedSprite.animation = "spit"
 	get_node("/root/AudioManager").add_effect("res://assets/audio/foom_0.wav", 0.0, 1.0, false)
 	var spits: Array
