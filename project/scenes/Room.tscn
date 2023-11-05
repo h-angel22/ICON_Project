@@ -16,8 +16,10 @@ z_index = -3
 [node name="Arrows" type="Node2D" parent="."]
 
 [node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
+collision_layer = 9
 
 [node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
+collision_layer = 9
 
 [node name="Objects" type="YSort" parent="."]
 

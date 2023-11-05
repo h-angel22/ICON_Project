@@ -57,6 +57,7 @@ collision_mask = 63
 
 [node name="CollisionsVerticals" type="StaticBody2D" parent="." groups=["Environment", "VerticalEnvironment"]]
 scale = Vector2( 1.3, 1.3 )
+collision_layer = 9
 
 [node name="CollisionUp" type="CollisionPolygon2D" parent="CollisionsVerticals"]
 polygon = PoolVector2Array( -960, -541, -780, -391, -59, -434, -81, -514, 77, -514, 68, -434, 724, -391, 961, -539 )
@@ -66,6 +67,7 @@ polygon = PoolVector2Array( -960, 540, -816, 366, -56, 426, -78, 521, 79, 522, 7
 
 [node name="CollisionsHorizontals" type="StaticBody2D" parent="." groups=["Environment", "HorizontalEnvironment"]]
 scale = Vector2( 1.3, 1.3 )
+collision_layer = 9
 
 [node name="CollisionLeft" type="CollisionPolygon2D" parent="CollisionsHorizontals"]
 polygon = PoolVector2Array( -959, -540, -787, -397, -849, -63, -940, -76, -936, 82, -848, 61, -823, 378, -960, 540 )
@@ -91,7 +93,7 @@ position = Vector2( -978, 572 )
 active = true
 
 [node name="Pong" parent="Objects" instance=ExtResource( 5 )]
-position = Vector2( 816, -78 )
+position = Vector2( -2, 0 )
 script = ExtResource( 13 )
 dash_speed = 30000
 rotation_speed = 0.3
@@ -102,7 +104,7 @@ number_of_hearts = 0
 number_of_mana = 0
 
 [node name="Player" parent="Objects" instance=ExtResource( 12 )]
-position = Vector2( 153, -112 )
+position = Vector2( 516, 35 )
 
 [node name="TimeToCheck" type="Timer" parent="."]
 wait_time = 0.05
