@@ -46,7 +46,7 @@ func read(to_print=false):
 			at_risk = true
 			break
 
-	reading[7] = at_risk
+	reading[7] = 1 if at_risk else 0
 
 	if to_print:
 		_print_read(reading)

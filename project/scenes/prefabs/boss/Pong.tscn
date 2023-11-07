@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/sprites/pong/salto1.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/pong/mobattacca.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/pong/mobicaughtyou.png" type="Texture" id=6]
-[ext_resource path="res://src/boss/Pong.gd" type="Script" id=7]
+[ext_resource path="res://ICON_src/PongML.gd" type="Script" id=7]
 [ext_resource path="res://ICON_src/Sensors.gd" type="Script" id=8]
 [ext_resource path="res://src/utility/Hitbox.gd" type="Script" id=9]
 [ext_resource path="res://scenes/prefabs/prop/shots/FireSpit.tscn" type="PackedScene" id=10]
@@ -80,10 +80,12 @@ extents = Vector2( 137.5, 908.5 )
 script = ExtResource( 7 )
 max_hp = 12
 speed = 5000
-jump_speed = 4000
-landing_damage = 4
+jump_speed = 20000
+landing_damage = 7
 spit = ExtResource( 10 )
 earthquake = ExtResource( 11 )
+dash_speed = 30000
+rotation_speed = 0.3
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( -1.59821, -54.3992 )

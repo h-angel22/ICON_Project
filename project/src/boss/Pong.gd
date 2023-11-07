@@ -15,8 +15,9 @@ var player
 func _ready():
 	original_contact_damage = contact_damage
 	sprite_offset = $AnimatedSprite.position.y
-	#player = get_parent().get_parent().get_parent().player
 	player = get_parent().get_node("Player")
+	if player == null:
+		player = get_parent().get_parent().get_parent().player
 	$Cooldown.start()
 
 func _physics_process(delta):
