@@ -9,7 +9,7 @@ export(int) var boss_room setget ,get_boss_room
 export(Array, PackedScene) var rooms
 
 const original_path = "res://scenes/Rooms/newRooms/"
-const rooms_path = "user://rooms/"
+const rooms_path = "user://"
 
 var officialRooms = []
 class tempRoom:

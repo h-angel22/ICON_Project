@@ -9,7 +9,7 @@ func _ready():
 	original_speed = speed
 	$Sensors.set_target(player)
 
-const py_path = "/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/python/DecisionTree/learnDT.py"
+const py_path = "./python/DecisionTree/learnDT.py"
 
 func _do_action(actions: Dictionary):
 	var action = actions[ actions.keys().max() ]

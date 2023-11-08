@@ -151,7 +151,7 @@ def testDT(data, print_tree=True, selections = None, **tree_args):
 
 #DT_learner.max_display_level = 4
 if __name__ == "__main__":
-    data = Data_from_file('/run/media/carlo/1ADE0211322EE208/Progetti/Godot/ICON_Project/project/ICON_src/python/DecisionTree/data/bossfight.csv', separator=',', target_index=-1)
+    data = Data_from_file('./data/bossfight.csv', separator=',', target_index=-1)
     
     learnerTree = DT_learner(data)
     tree = learnerTree.learn()
@@ -160,8 +160,6 @@ if __name__ == "__main__":
     esempio = []
     for s in esempio_str:
         esempio.append( float(s) )
-    #esempio = [1097.023682, 992.922302, 552.041077, 548.765137, -0.913435, 0.406985, 773.748169, 0]
-    #print(tree.__doc__)
     
     predizione = tree(esempio)
     for i in predizione:

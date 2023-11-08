@@ -1,7 +1,7 @@
 extends Node
 
 const rooms_path = "res://scenes/Rooms/newRooms/"
-const out_path = "res://ICON_src/rooms.txt"
+const out_path = "rooms.txt"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
