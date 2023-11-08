@@ -67,7 +67,9 @@ func _archs_str() -> String:
 func _path_finder() -> Array:
 	var path: Array
 	var path_str = []
-	OS.execute("python3", [py_path, _archs_str(), current_room], true, path_str)
+	var exit_code = OS.execute("python", [py_path, _archs_str(), current_room], true, path_str)
+	if exit_code != 0:
+		exit_code = OS.execute("python3", [py_path, _archs_str(), current_room], true, path_str)
 	path = path_str[0].split(" --> ")
 	print(path)
 	return path

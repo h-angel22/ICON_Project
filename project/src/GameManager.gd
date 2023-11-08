@@ -38,7 +38,9 @@ func _init():
 func _generate_level():
 	var level_str = [""]
 	while level_str[0] == "":
-		var exit_code = OS.execute("python3", [py_path], true, level_str)
+		var exit_code = OS.execute("python", [py_path], true, level_str)
+		if exit_code != 0:
+			exit_code = OS.execute("python3", [py_path], true, level_str)
 		print(level_str)
 	var l = Level.new()
 	l.initialize(level_str[0])

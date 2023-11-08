@@ -28,7 +28,9 @@ func _do_action(actions: Dictionary):
 func _input_ml():
 	var action_str = []
 	var read = $Sensors.read()
-	var exit_code = OS.execute("python3", [py_path] + read, true, action_str)
+	var exit_code = OS.execute("python", [py_path] + read, true, action_str)
+	if exit_code != 0:
+		exit_code = OS.execute("python3", [py_path] + read, true, action_str)
 	
 	var actions_temp = action_str[0].split("\n", false)
 	var actions = {}

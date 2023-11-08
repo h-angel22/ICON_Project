@@ -8,6 +8,7 @@
 # Attribution-NonCommercial-ShareAlike 4.0 International License.
 # See: http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en
 
+import os
 import sys
 from learnProblem import Learner, Evaluate
 from learnNoInputs import Predict
@@ -149,13 +150,16 @@ def testDT(data, print_tree=True, selections = None, **tree_args):
             if print_tree:
                 print(tree.__doc__)
 
-#DT_learner.max_display_level = 4
 if __name__ == "__main__":
-    data = Data_from_file('./data/bossfight.csv', separator=',', target_index=-1)
+    
+    absolute_path = os.path.dirname(__file__)
+    relative_path = "./data/bossfight.csv"
+    full_path = os.path.join(absolute_path, relative_path)
+    
+    data = Data_from_file(full_path, separator=',', target_index=-1)
     
     learnerTree = DT_learner(data)
     tree = learnerTree.learn()
-    #print(sys.argv)
     esempio_str = sys.argv[1:]
     esempio = []
     for s in esempio_str:
