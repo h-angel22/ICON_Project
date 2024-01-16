@@ -49,7 +49,7 @@ func initialize(description: String):
 		print("id: ", r.id, ", pos: ", r.position)
 
 	start_room = 0
-	boss_room = 2
+	boss_room = 8 #TODO da sistemare perché funziona solo se generiamo 11 stanze
 
 
 func _developLevel():

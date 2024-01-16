@@ -1,6 +1,6 @@
 extends Node
 
-const py_path = "./python/csp/mainCSP.py"
+const py_path = "./python/csp/mainDividiEtImpera.py"
 
 export(PackedScene) var player_scene
 export(PackedScene) var assistant_scene
