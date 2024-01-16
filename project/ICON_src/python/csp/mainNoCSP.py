@@ -5,7 +5,7 @@ from cspProblem import Variable, CSP, Constraint
 from cspSLS import *
 from costraints import *
 
-dim = 23
+dim = 11
 
 absolute_path = os.path.dirname(__file__)
 relative_path = "../../rooms.txt"

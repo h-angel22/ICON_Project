@@ -5,7 +5,7 @@ from room import *
 from RoomProblemCSP import RoomProblem
 from Block import *
 
-level_dim = 7
+level_dim = 11
 sub_dim = 4
 
 
