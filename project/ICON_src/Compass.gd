@@ -71,6 +71,9 @@ func _path_finder() -> Array:
 	if exit_code != 0:
 		exit_code = OS.execute("python3", [py_path, _archs_str(), current_room], true, path_str)
 	path = path_str[0].split(" --> ")
+	print("Situazione livello: ", _archs_str())
+	print("Stanza attuale: ", current_room)
+	print("Destinazione: 8")
 	print(path)
 	return path
 
