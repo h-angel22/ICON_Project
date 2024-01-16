@@ -5,8 +5,8 @@ from cspProblem import Variable, CSP, Constraint
 from cspSLS import *
 from costraints import *
 
-dim = 7
-num_archs = 8
+dim = 11
+num_archs = 12
 
 
 #variabili

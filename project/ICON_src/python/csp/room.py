@@ -1,5 +1,14 @@
+from enum import Enum
+import random
+
 def to_bool(n) -> bool:
     return n != -2
+
+class Direction(Enum):
+    LEFT = 0
+    RIGHT = 1
+    TOP = 2
+    BOTTOM = 3
 
 class Room(object):
     def __init__(self, string) -> None:
@@ -41,8 +50,65 @@ class Room(object):
     # stampa quando richiamo la lista degli elementi Room
     def __repr__(self) -> str:
         return f"\n<{self.name} - id {self.id}:\t{self.can_left}\t{self.can_right}\t{self.can_top}\t{self.can_bottom}>"
+    
+    def get_direction(self):
+        arr = []
+        count = 0
+        if self.can_left:
+            count += 1
+            arr.append(Direction.LEFT)
+        if self.can_right:
+            count += 1
+            arr.append(Direction.RIGHT)
+        if self.can_top:
+            count += 1
+            arr.append(Direction.TOP)
+        if self.can_bottom:
+            count += 1
+            arr.append(Direction.BOTTOM)
+        direction = random.randint(0, count-1)
+        
+        return arr[direction]
+    
+    def can(self, dir):
+        match dir:
+            case Direction.LEFT: 
+                return self.can_left
+            case Direction.RIGHT: 
+                return self.can_right
+            case Direction.TOP: 
+                return self.can_top
+            case Direction.BOTTOM: 
+                return self.can_bottom
+    
+    def is_completed(self):
+        return not (self.can_left or self.can_right or self.can_top or self.can_bottom)
 
-def archs_to_rooms(rooms: 'list[Room]', archs: dict):
+def attach_rooms(r1, r2, dir):
+    match dir:
+        case Direction.LEFT: 
+            r1.left = r2.id
+            r1.can_left = False
+            r2.right = r1.id
+            r2.can_right = False
+        case Direction.RIGHT: 
+            r1.right = r2.id
+            r1.can_right = False
+            r2.left = r1.id
+            r2.can_left = False
+        case Direction.TOP: 
+            r1.top = r2.id
+            r1.can_top = False
+            r2.bottom = r1.id
+            r2.can_bottom = False
+        case Direction.BOTTOM: 
+            r1.bottom = r2.id
+            r1.can_bottom = False
+            r2.top = r1.id
+            r2.can_top = False
+    
+
+def archs_to_rooms(rooms: 'list[Room]', archs: dict, delta: int = 0):
     archs = archs.values()
 #   archs_list = archs.values()
 #   archs_to_rooms(rooms, archs_list)
@@ -60,12 +126,15 @@ def archs_to_rooms(rooms: 'list[Room]', archs: dict):
             ar_ver.append(a)
 
     for a in ar_hor:
-        rooms[a[0]].right = a[1]
-        rooms[a[1]].left = a[0]
+        rooms[a[0]].right = a[1] + delta
+        rooms[a[1]].left = a[0] + delta
 
     for a in ar_ver:
-        rooms[a[2]].bottom = a[3]
-        rooms[a[3]].top = a[2]
+        rooms[a[2]].bottom = a[3] + delta
+        rooms[a[3]].top = a[2] + delta
+    
+    for r in rooms:
+        r.id += delta
 
 """
 class Arch(object):
